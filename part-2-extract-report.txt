@@ -1,0 +1,32 @@
+﻿===== PART 2 EXTRACT REPORT =====
+
+Input: D:\الموقع\mazakrawi\part 2.txt
+
+Found file markers: 11
+
+CREATED: assets\css\admin.css | Size: 19174
+CREATED: assets\js\admin-mahmoud.js | Size: 73551
+CREATED: admin-mahmoud\dashboard.html | Size: 5455
+CREATED: admin-mahmoud\students.html | Size: 7119
+CREATED: admin-mahmoud\reports.html | Size: 3539
+CREATED: admin-mahmoud\operation.html | Size: 3413
+CREATED: admin-mahmoud\quizzes.html | Size: 5525
+CREATED: admin-mahmoud\doctor-question.html | Size: 3523
+CREATED: admin-mahmoud\seasons.html | Size: 3084
+CREATED: admin-mahmoud\doctors.html | Size: 4966
+CREATED: admin-mahmoud\logs.html | Size: 5028
+
+===== EXPECTED FILES CHECK =====
+FOUND: assets\css\admin.css
+FOUND: assets\js\admin-mahmoud.js
+FOUND: admin-mahmoud\dashboard.html
+FOUND: admin-mahmoud\students.html
+FOUND: admin-mahmoud\reports.html
+FOUND: admin-mahmoud\operation.html
+FOUND: admin-mahmoud\quizzes.html
+FOUND: admin-mahmoud\doctor-question.html
+FOUND: admin-mahmoud\seasons.html
+FOUND: admin-mahmoud\doctors.html
+FOUND: admin-mahmoud\logs.html
+
+===== RISK CHECKS =====

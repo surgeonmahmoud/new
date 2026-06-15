@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دخول لاعب — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <img src="/assets/img/league-logo.png" alt="logo" class="auth-logo-img" />
+      <div class="auth-title">⚽ دخول لاعب</div>
+      <p class="auth-sub">أدخل بياناتك وابدأ رحلتك في الدوري</p>
+
+      <div id="loginAlert" style="display:none"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="loginPhone">رقم التليفون</label>
+          <input id="loginPhone" class="form-input" type="tel" placeholder="01XXXXXXXXX" autocomplete="tel" />
+        </div>
+        <div class="form-group">
+          <label for="loginPin">الـ PIN</label>
+          <input id="loginPin" class="form-input" type="password" placeholder="••••" autocomplete="current-password" />
+        </div>
+        <button id="loginBtn" type="submit" class="btn btn-gold btn-full btn-lg">دخول</button>
+      </form>
+
+      <div class="auth-link">
+        لا تملك حسابًا؟ <a href="/signup.html">إنشاء لاعب</a>
+      </div>
+      <div class="auth-link" style="margin-top:8px">
+        <a href="/index.html">← الرجوع للرئيسية</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/auth.js"></script>
+<a href="https://t.me/Mahmoud_M_Hassan101BOT" class="support-float" data-support-link aria-label="support">💬</a>
+<script src="/assets/js/control-gate.js"></script>
+</body>
+</html>

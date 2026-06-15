@@ -1,0 +1,31 @@
+﻿===== PHASE 4 ADMIN PATCH REPORT =====
+Project Path: D:\الموقع\mazakrawi
+UPDATED: assets\js\admin-phase4.js
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\doctor-question.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\doctor-question.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\doctors.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\doctors.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\logs.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\logs.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\operation.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\operation.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\quizzes.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\quizzes.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\reports.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\reports.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\seasons.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\seasons.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\students.html
+INSERTED admin-phase4.js: D:\الموقع\mazakrawi\admin-mahmoud\students.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+ADDED settings/subjects section to dashboard
+BACKUP: D:\الموقع\mazakrawi\assets\css\admin.css
+APPENDED phase4 admin CSS
+
+===== POST CHECK =====
+FOUND: assets\js\admin-phase4.js
+FOUND: admin-mahmoud\dashboard.html
+FOUND: assets\css\admin.css
+DONE

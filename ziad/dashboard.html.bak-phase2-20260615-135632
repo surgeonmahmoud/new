@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة كنترول دكتور زياد - المدير</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>لوحة كنترول دكتور زياد - المدير</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>لوحة كنترول دكتور زياد - المدير</h1></div>
+      <div class="admin-content">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-icon">👥</div><div id="stat-total-students" class="stat-value">0</div><div class="stat-label">إجمالي الطلاب</div></div>
+          <div class="stat-card"><div class="stat-icon">📋</div><div id="stat-total-achievements" class="stat-value">0</div><div class="stat-label">إجمالي الإنجازات</div></div>
+          <div class="stat-card"><div class="stat-icon">⏱️</div><div id="stat-total-study-hours" class="stat-value">0</div><div class="stat-label">ساعات المذاكرة</div></div>
+          <div class="stat-card"><div class="stat-icon">❓</div><div id="stat-total-questions" class="stat-value">0</div><div class="stat-label">إجمالي الأسئلة</div></div>
+          <div class="stat-card"><div class="stat-icon">⚙️</div><div id="stat-operation-hours" class="stat-value">0</div><div class="stat-label">ساعات Operation</div></div>
+          <div class="stat-card"><div class="stat-icon">📝</div><div id="stat-quizzes" class="stat-value">0</div><div class="stat-label">عدد الكويزات</div></div>
+          <div class="stat-card"><div class="stat-icon">💬</div><div id="stat-doctor-answers" class="stat-value">0</div><div class="stat-label">إجابات سؤال الدكتور</div></div>
+          <div class="stat-card"><div class="stat-icon">⏳</div><div id="stat-pending-reports" class="stat-value">0</div><div class="stat-label">تقارير Pending</div></div>
+        </div>
+        <div class="grid-3 mb-2">
+          <div class="card"><div class="card-title">📚 أكثر المواد نشاطًا</div><div id="top-subjects"></div></div>
+          <div class="card"><div class="card-title">🎓 أكثر الصفوف نشاطًا</div><div id="top-grades"></div></div>
+          <div class="card"><div class="card-title">🧭 أكثر المسارات نشاطًا</div><div id="top-tracks"></div></div>
+        </div>
+        <div class="grid-2 mb-2">
+          <div class="card"><div class="card-title">👩‍⚕️ أكثر مجموعات الدكتور نشاطًا</div><div id="top-doctor-groups"></div></div>
+          <div class="card"><div class="card-title">🏆 أكثر الطلاب نشاطًا</div><div id="top-students"></div></div>
+        </div>
+        <div class="card"><div class="card-title">🥇 معاينة جدول الدوري</div><div id="leaderboard-preview"></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadDashboard);</script>
+</body>
+</html>

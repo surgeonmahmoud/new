@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+
+<!-- Login Gate -->
+<div id="admin-login-overlay">
+  <div class="login-card">
+    <div class="logo">🏆</div>
+    <h2>دوري المذاكراوية</h2>
+    <p>لوحة تحكم الأدمن — محمود</p>
+    <div class="form-group">
+      <input type="password" id="login-code-input" placeholder="أدخل كود الدخول" autocomplete="off">
+    </div>
+    <button id="login-btn" class="btn btn-primary btn-block btn-lg">دخول</button>
+  </div>
+</div>
+
+<div class="admin-shell">
+  <!-- Sidebar -->
+  <nav class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="/assets/img/league-logo.png" alt="logo" class="admin-logo-img" />
+      <div class="brand">دوري المذاكراوية <span>Admin — محمود</span></div>
+    </div>
+    <div class="sidebar-nav" id="admin-nav"></div>
+    <div class="sidebar-footer">
+      <button id="admin-logout-btn" class="btn btn-ghost btn-sm btn-block">🚪 خروج</button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1>📊 الإحصائيات وإعادة الموقع</h1>
+      <button class="btn btn-red btn-sm" onclick="if(confirm('تأكيد إعادة الموقع؟'))doResetSite()">🔄 إعادة الموقع</button>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Date Range Filter -->
+      <div class="filter-bar mb-2">
+        <div class="form-group">
+          <label class="form-label">من تاريخ</label>
+          <input type="date" id="date-from">
+        </div>
+        <div class="form-group">
+          <label class="form-label">إلى تاريخ</label>
+          <input type="date" id="date-to">
+        </div>
+        <div class="form-group" style="align-self:flex-end">
+          <button id="date-filter-btn" class="btn btn-primary">🔍 تصفية</button>
+        </div>
+      </div>
+
+      <!-- All-time stats -->
+      <div class="stats-grid">
+        <div class="stat-card" id="stat-students">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value">—</div>
+          <div class="stat-label">طلاب نشطون</div>
+        </div>
+        <div class="stat-card" id="stat-hours">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-value">—</div>
+          <div class="stat-label">ساعات مذاكرة</div>
+        </div>
+        <div class="stat-card" id="stat-questions">
+          <div class="stat-icon">❓</div>
+          <div class="stat-value">—</div>
+          <div class="stat-label">أسئلة الدكتور</div>
+        </div>
+        <div class="stat-card" id="stat-op-hours">
+          <div class="stat-icon">⚙️</div>
+          <div class="stat-value">—</div>
+          <div class="stat-label">ساعات Operation</div>
+        </div>
+        <div class="stat-card" id="stat-pending">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-value">—</div>
+          <div class="stat-label">تقارير معلقة</div>
+        </div>
+      </div>
+
+      <!-- Current Season -->
+      <div class="card mb-2">
+        <div class="card-title">🏆 الموسم الحالي</div>
+        <div id="current-season-card"><div class="spinner"></div></div>
+      </div>
+
+      <!-- Mini leaderboards row -->
+      <div class="grid-3 mb-2">
+        <div class="card">
+          <div class="card-title">📚 أكثر المواد نشاطاً</div>
+          <div id="top-subjects-list" class="leaderboard-mini"><div class="spinner"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">👨‍⚕️ أكثر الدكاترة نشاطاً</div>
+          <div id="top-doctors-list" class="leaderboard-mini"><div class="spinner"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🥇 أفضل الطلاب</div>
+          <div id="top-students-list" class="leaderboard-mini"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- Achievement Window Settings -->
+      <div class="card">
+        <div class="card-title">⏰ إعدادات نافذة التقارير</div>
+        <div class="input-row">
+          <div class="form-group">
+            <label class="form-label">الوضع</label>
+            <select id="ach-mode">
+              <option value="always_open">مفتوح دائماً</option>
+              <option value="always_closed">مغلق دائماً</option>
+              <option value="time_window">نافذة زمنية</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">وقت الفتح</label>
+            <input type="time" id="ach-open">
+          </div>
+          <div class="form-group">
+            <label class="form-label">وقت الإغلاق</label>
+            <input type="time" id="ach-close">
+          </div>
+          <div class="form-group" style="align-self:flex-end">
+            <button class="btn btn-primary" onclick="saveAchievementSettings()">💾 حفظ</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/admin-mahmoud.js"></script>
+<script>
+  window._adminInitFn = initMahmoudDashboard;
+  document.addEventListener('DOMContentLoaded', () => {
+    if (checkAccess()) initMahmoudDashboard();
+  });
+</script>
+  <script src="/assets/js/admin-phase4.js"></script>
+</body>
+</html>

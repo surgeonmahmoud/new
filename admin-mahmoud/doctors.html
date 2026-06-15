@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الدكاترة والطلبات — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+
+<div id="admin-login-overlay">
+  <div class="login-card">
+    <div class="logo">🏆</div>
+    <h2>دوري المذاكراوية</h2>
+    <p>لوحة تحكم الأدمن — محمود</p>
+    <div class="form-group">
+      <input type="password" id="login-code-input" placeholder="أدخل كود الدخول" autocomplete="off">
+    </div>
+    <button id="login-btn" class="btn btn-primary btn-block btn-lg">دخول</button>
+  </div>
+</div>
+
+<div class="admin-shell">
+  <nav class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="/assets/img/league-logo.png" alt="logo" class="admin-logo-img" />
+      <div class="brand">دوري المذاكراوية <span>Admin — محمود</span></div>
+    </div>
+    <div class="sidebar-nav" id="admin-nav"></div>
+    <div class="sidebar-footer">
+      <button id="admin-logout-btn" class="btn btn-ghost btn-sm btn-block">🚪 خروج</button>
+    </div>
+  </nav>
+
+  <main class="admin-main" id="doctors-page">
+    <div class="admin-topbar">
+      <h1>👨‍⚕️ الدكاترة والطلبات</h1>
+    </div>
+
+    <div class="admin-content">
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="dtab-groups">مجموعات الدكاترة</button>
+        <button class="tab-btn" data-tab="dtab-requests">طلبات التغيير</button>
+      </div>
+
+      <!-- Groups Tab -->
+      <div id="dtab-groups" class="tab-pane active">
+        <div class="section-header">
+          <h2>المجموعات والباقات</h2>
+          <button class="btn btn-primary btn-sm" onclick="openAddDoctor()">➕ إضافة</button>
+        </div>
+        <div id="doctor-groups-grid" class="grid-auto">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Change Requests Tab -->
+      <div id="dtab-requests" class="tab-pane">
+        <div class="section-header">
+          <h2>طلبات تغيير الدكتور</h2>
+          <button class="btn btn-ghost btn-sm" onclick="loadChangeRequests()">🔄 تحديث</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الطالب</th>
+                <th>الدكتور القديم</th>
+                <th>الدكتور الجديد</th>
+                <th>الحالة</th>
+                <th>التاريخ</th>
+                <th>إجراء</th>
+              </tr>
+            </thead>
+            <tbody id="change-requests-tbody">
+              <tr class="loading-row"><td colspan="6"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Doctor Form Modal -->
+<div id="doctor-form-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="doctor-modal-title">➕ إضافة دكتور / باقة</h3>
+      <button data-close-modal class="btn btn-ghost btn-xs">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="doctor-form">
+        <div class="input-row">
+          <div class="form-group">
+            <label class="form-label">الاسم الداخلي (name)</label>
+            <input type="text" name="name" required placeholder="dr_ahmed">
+          </div>
+          <div class="form-group">
+            <label class="form-label">الاسم المعروض</label>
+            <input type="text" name="display_name" placeholder="د. أحمد">
+          </div>
+          <div class="form-group">
+            <label class="form-label">كود الدخول</label>
+            <input type="text" name="login_code" placeholder="AHMED2025">
+          </div>
+          <div class="form-group">
+            <label class="form-label">الدور</label>
+            <select name="role">
+              <option value="doctor">دكتور</option>
+              <option value="package">باقة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">الترتيب</label>
+            <input type="number" name="sort_order" value="0">
+          </div>
+          <div class="form-group" style="display:flex;align-items:center;gap:.5rem;align-self:flex-end">
+            <input type="checkbox" name="is_student_selectable" id="selectable_chk">
+            <label for="selectable_chk" class="form-label" style="margin:0">قابل لاختيار الطلاب</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-2">💾 حفظ</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/admin-mahmoud.js"></script>
+<script>
+  window._adminInitFn = initMahmoudDoctors;
+  document.addEventListener('DOMContentLoaded', () => {
+    if (checkAccess()) initMahmoudDoctors();
+  });
+</script>
+  <script src="/assets/js/admin-phase4.js"></script>
+</body>
+</html>

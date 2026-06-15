@@ -1,0 +1,15 @@
+﻿===== PHASE 3 EDUCATION PATCH REPORT =====
+Project Path: D:\الموقع\mazakrawi
+UPDATED: assets\js\education-config.js
+BACKUP: D:\الموقع\mazakrawi\signup.html
+INSERTED SCRIPT: /assets/js/education-config.js into D:\الموقع\mazakrawi\signup.html
+BACKUP: D:\الموقع\mazakrawi\student\report.html
+INSERTED SCRIPT: /assets/js/education-config.js into D:\الموقع\mazakrawi\student\report.html
+BACKUP: D:\الموقع\mazakrawi\assets\css\main.css
+APPENDED CSS: main.css
+
+===== POST CHECK =====
+FOUND: signup.html
+FOUND: student\report.html
+FOUND: assets\js\education-config.js
+DONE

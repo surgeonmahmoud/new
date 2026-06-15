@@ -1,0 +1,70 @@
+﻿===== PART 3 EXTRACT REPORT =====
+
+CREATED: ziad\dashboard.html | Size: 3986
+CREATED: ziad\students.html | Size: 3052
+CREATED: ziad\reports.html | Size: 2741
+CREATED: ziad\leaderboards.html | Size: 2307
+CREATED: ziad\analytics.html | Size: 2506
+CREATED: assets\js\ziad-panel.js | Size: 10895
+CREATED: doctor\dashboard.html | Size: 2930
+CREATED: doctor\students.html | Size: 3176
+CREATED: doctor\reports.html | Size: 3498
+CREATED: doctor\leaderboards.html | Size: 2384
+CREATED: doctor\logs.html | Size: 2357
+CREATED: assets\js\doctor-panel.js | Size: 14273
+
+===== EXPECTED FILES CHECK =====
+FOUND: ziad\dashboard.html
+FOUND: ziad\students.html
+FOUND: ziad\reports.html
+FOUND: ziad\leaderboards.html
+FOUND: ziad\analytics.html
+FOUND: assets\js\ziad-panel.js
+FOUND: doctor\dashboard.html
+FOUND: doctor\students.html
+FOUND: doctor\reports.html
+FOUND: doctor\leaderboards.html
+FOUND: doctor\logs.html
+FOUND: assets\js\doctor-panel.js
+
+===== RISK CHECKS =====
+
+--- Pattern: `",
+   ---
+OK: Not found
+
+--- Pattern: window\. ---
+OK: Not found
+
+--- Pattern: doctor\_groups ---
+OK: Not found
+
+--- Pattern: v\_leaderboard ---
+OK: Not found
+
+--- Pattern: .delete( ---
+OK: Not found
+
+--- Pattern: delete() ---
+OK: Not found
+
+--- Pattern: DROP TABLE ---
+OK: Not found
+
+--- Pattern: TRUNCATE ---
+OK: Not found
+
+--- Pattern: submission_date ---
+OK: Not found
+
+--- Pattern: actual_duration ---
+OK: Not found
+
+--- Pattern: planned_duration ---
+OK: Not found
+
+--- Pattern: xp_amount ---
+OK: Not found
+
+--- Pattern: xp_earned ---
+OK: Not found

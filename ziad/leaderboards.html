@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جداول الدوري - دكتور زياد</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header">
+      <img src="/assets/img/league-logo.png" alt="logo" class="admin-logo-img" /><div class="brand">دوري المذاكراوية <span>جداول الدوري - دكتور زياد</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>جداول الدوري - دكتور زياد</h1></div>
+      <div class="admin-content">
+        <div class="grid-2">
+          <div class="card"><div class="card-title">🏆 بطل الجولة</div><div id="lb-general"></div></div>
+          <div class="card"><div class="card-title">🎯 هداف الدوري</div><div id="lb-questions"></div></div>
+          <div class="card"><div class="card-title">⚙️ أبطال التركيز</div><div id="lb-focus"></div></div>
+          <div class="card"><div class="card-title">🧱 المثابر</div><div id="lb-persistent"></div></div>
+          <div class="card"><div class="card-title">📝 كويز 9</div><div id="lb-quiz"></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadLeaderboards);</script>
+</body>
+</html>

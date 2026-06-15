@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سؤال الدكتور — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<div id="doctorQuestionPage" class="app-shell">
+
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-brand">
+      <img src="/assets/img/league-logo.png" alt="logo" class="nav-logo-img" />
+      <div class="brand-title">⚽ دوري المذاكراوية</div>
+      <div class="brand-sub">منصة المذاكرة التنافسية</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/student/home.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="/student/report.html"><span class="nav-icon">📋</span> تقرير الإنجاز</a></li>
+      <li><a href="/student/operation.html"><span class="nav-icon">⚡</span> Operation Room</a></li>
+      <li><a href="/student/quiz.html"><span class="nav-icon">📝</span> كويز 9</a></li>
+      <li><a href="/student/doctor-question.html" class="nav-active"><span class="nav-icon">💬</span> سؤال الدكتور</a></li>
+      <li><a href="/student/hall-of-fame.html"><span class="nav-icon">🏆</span> Hall of Fame</a></li>
+      <li><a href="/student/leaderboards.html"><span class="nav-icon">📊</span> جداول الدوري</a></li>
+      <li class="nav-logout"><a href="#" onclick="logoutStudent();return false;"><span class="nav-icon">🚪</span> خروج</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+    <header class="page-header">
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="page-title">💬 سؤال الدكتور</div>
+      <button class="btn btn-ghost btn-sm" onclick="openModal('changeDoctorModal')">تغيير الدكتورة 🔄</button>
+    </header>
+
+    <main class="page-body">
+      <div id="dqContainer">
+        <div class="state-box loading-box"><span class="spinner"></span><p>جاري التحميل…</p></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Change Doctor Modal -->
+<div class="modal-overlay" id="changeDoctorModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('changeDoctorModal')">✕</button>
+    <div class="modal-title">🔄 تغيير الدكتورة</div>
+    <p class="text-muted mb-2" style="text-align:center;font-size:0.83rem">الطلب هيتراجع من الإدارة قبل التغيير</p>
+    <div id="changeDoctorList">
+      <div class="state-box loading-box"><span class="spinner"></span></div>
+    </div>
+    <button class="btn btn-ghost btn-full mt-2" onclick="closeModal('changeDoctorModal')">إلغاء</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script>
+let _currentQuestion = null;
+let _student = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  _student = requireStudentAuth();
+  if (!_student) return;
+  initNavToggle();
+  await loadTodayQuestion();
+  loadChangeDoctorList();
+});
+
+async function loadTodayQuestion() {
+  const db = window.supabaseClient;
+  const container = qs('#dqContainer');
+  const today = todayStr();
+  try {
+    // Get open question for today
+    let q = await db.from('doctor_questions')
+      .select('*')
+      .eq('is_open', true)
+      .eq('question_date', today)
+      .maybeSingle();
+    if (!q.data) {
+      // fallback: latest open
+      const fb = await db.from('doctor_questions')
+        .select('*')
+        .eq('is_open', true)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      q = fb;
+    }
+    const question = q.data;
+    if (!question) {
+      container.innerHTML = emptyHtml('مفيش سؤال مفتوح النهارده');
+      return;
+    }
+    _currentQuestion = question;
+
+    // Check if student already answered
+    const { data: myAns } = await db
+      .from('doctor_answers')
+      .select('id, answer_text')
+      .eq('question_id', question.id)
+      .eq('student_id', _student.id)
+      .maybeSingle();
+
+    // Load featured visible answers
+    const { data: answers } = await db
+      .from('doctor_answers')
+      .select('*')
+      .eq('question_id', question.id)
+      .eq('is_hidden', false)
+      .order('is_featured', { ascending: false })
+      .order('created_at');
+
+    let html = `<div class="dq-card">
+      <div class="dq-question">❓ ${safeText(question.question_text)}</div>`;
+
+    if (myAns) {
+      html += `<div class="alert alert-success mb-2">✅ ردك: ${safeText(myAns.answer_text)}</div>`;
+    } else {
+      html += `
+      <div id="ansAlert" style="display:none"></div>
+      <div class="form-group">
+        <label>ردك على السؤال</label>
+        <textarea id="ansText" class="form-textarea" placeholder="اكتب إجابتك هنا…" rows="3"></textarea>
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="showName" checked />
+        <label for="showName" style="margin:0;font-size:0.85rem">اظهر اسمي مع الإجابة</label>
+      </div>
+      <button onclick="submitAnswer()" class="btn btn-primary btn-full">إرسال الإجابة 📤</button>`;
+    }
+    html += `</div>`;
+
+    if (answers && answers.length) {
+      html += `<div class="section-title mt-3">💡 إجابات مختارة</div>`;
+      html += answers.map(a => `
+        <div class="dq-answer-card ${a.is_featured ? 'dq-featured' : ''}">
+          ${safeText(a.answer_text)}
+          ${a.show_name ? `<div class="dq-answer-name">${safeText(a.student_id === _student.id ? '— أنت' : '')}</div>` : ''}
+        </div>
+      `).join('');
+    }
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = emptyHtml('خطأ: ' + err.message);
+  }
+}
+
+async function submitAnswer() {
+  clearAlert('ansAlert');
+  const text = qs('#ansText')?.value.trim();
+  if (!text) { showAlert('ansAlert', 'اكتب إجابتك الأول'); return; }
+  const showName = qs('#showName')?.checked ?? true;
+  const db = window.supabaseClient;
+  try {
+    const { error } = await db.from('doctor_answers').insert({
+      question_id: _currentQuestion.id,
+      student_id: _student.id,
+      answer_text: text,
+      show_name: showName,
+      created_at: new Date().toISOString(),
+    });
+    if (error) throw error;
+    showToast('تم إرسال إجابتك ✅', 'success');
+    await loadTodayQuestion();
+  } catch (err) {
+    showAlert('ansAlert', 'خطأ: ' + err.message);
+  }
+}
+
+async function loadChangeDoctorList() {
+  const db = window.supabaseClient;
+  const list = qs('#changeDoctorList');
+  try {
+    const { data } = await db.from('doctor_groups')
+      .select('id, name, display_name')
+      .eq('is_active', true)
+      .eq('is_student_selectable', true)
+      .order('sort_order');
+    if (!data || !data.length) { list.innerHTML = emptyHtml('مفيش مجموعات'); return; }
+    list.innerHTML = data.map(g => `
+      <button class="doctor-choice-btn" onclick="requestDoctorChange('${g.name}')">
+        ${safeText(g.display_name || g.name)}
+      </button>
+    `).join('');
+  } catch { list.innerHTML = emptyHtml('خطأ في التحميل'); }
+}
+
+async function requestDoctorChange(newDoctor) {
+  if (!_student) return;
+  const db = window.supabaseClient;
+  try {
+    const { error } = await db.from('doctor_change_requests').insert({
+      student_id: _student.id,
+      old_doctor: _student.doctor_group || null,
+      new_doctor: newDoctor,
+      status: 'pending',
+      created_at: new Date().toISOString(),
+    });
+    if (error) throw error;
+    closeModal('changeDoctorModal');
+    showToast('تم إرسال طلب التغيير للإدارة ✅', 'success');
+  } catch (err) {
+    showToast('خطأ: ' + err.message, 'error');
+  }
+}
+</script>
+</body>
+</html>

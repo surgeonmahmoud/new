@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جداول الدوري — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<div id="leaderboardsPage" class="app-shell">
+
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-brand">
+      <img src="/assets/img/league-logo.png" alt="logo" class="nav-logo-img" />
+      <div class="brand-title">⚽ دوري المذاكراوية</div>
+      <div class="brand-sub">منصة المذاكرة التنافسية</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/student/home.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="/student/report.html"><span class="nav-icon">📋</span> تقرير الإنجاز</a></li>
+      <li><a href="/student/operation.html"><span class="nav-icon">⚡</span> Operation Room</a></li>
+      <li><a href="/student/quiz.html"><span class="nav-icon">📝</span> كويز 9</a></li>
+      <li><a href="/student/doctor-question.html"><span class="nav-icon">💬</span> سؤال الدكتور</a></li>
+      <li><a href="/student/hall-of-fame.html"><span class="nav-icon">🏆</span> Hall of Fame</a></li>
+      <li><a href="/student/leaderboards.html" class="nav-active"><span class="nav-icon">📊</span> جداول الدوري</a></li>
+      <li class="nav-logout"><a href="#" onclick="logoutStudent();return false;"><span class="nav-icon">🚪</span> خروج</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+    <header class="page-header">
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="page-title">📊 جداول الدوري</div>
+    </header>
+
+    <main class="page-body">
+      <div id="lbTabs">
+        <div class="tabs-header">
+          <button class="tab-btn" data-tab="lb-general">🥇 بطل الجولة</button>
+          <button class="tab-btn" data-tab="lb-questions">🎯 هداف الدوري</button>
+          <button class="tab-btn" data-tab="lb-focus">⚡ أبطال التركيز</button>
+          <button class="tab-btn" data-tab="lb-persistent">📚 المثابر</button>
+          <button class="tab-btn" data-tab="lb-quiz">📝 كويز 9</button>
+        </div>
+        <div id="lb-general"    class="tab-panel"></div>
+        <div id="lb-questions"  class="tab-panel"></div>
+        <div id="lb-focus"      class="tab-panel"></div>
+        <div id="lb-persistent" class="tab-panel"></div>
+        <div id="lb-quiz"       class="tab-panel"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/leaderboards.js"></script>
+<a href="https://t.me/Mahmoud_M_Hassan101BOT" class="support-float" data-support-link aria-label="support">💬</a>
+<script src="/assets/js/control-gate.js"></script>
+</body>
+</html>

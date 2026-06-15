@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكويزات — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+
+<div id="admin-login-overlay">
+  <div class="login-card">
+    <div class="logo">🏆</div>
+    <h2>دوري المذاكراوية</h2>
+    <p>لوحة تحكم الأدمن — محمود</p>
+    <div class="form-group">
+      <input type="password" id="login-code-input" placeholder="أدخل كود الدخول" autocomplete="off">
+    </div>
+    <button id="login-btn" class="btn btn-primary btn-block btn-lg">دخول</button>
+  </div>
+</div>
+
+<div class="admin-shell">
+  <nav class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="brand">دوري المذاكراوية <span>Admin — محمود</span></div>
+    </div>
+    <div class="sidebar-nav" id="admin-nav"></div>
+    <div class="sidebar-footer">
+      <button id="admin-logout-btn" class="btn btn-ghost btn-sm btn-block">🚪 خروج</button>
+    </div>
+  </nav>
+
+  <main class="admin-main" id="quizzes-page">
+    <div class="admin-topbar">
+      <h1>📝 الكويزات</h1>
+      <button class="btn btn-primary btn-sm" onclick="openAddQuiz()">➕ كويز جديد</button>
+    </div>
+
+    <div class="admin-content">
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>العنوان</th>
+              <th>الصف</th>
+              <th>المادة</th>
+              <th>التاريخ</th>
+              <th>يفتح</th>
+              <th>يغلق</th>
+              <th>الحالة</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="quizzes-tbody">
+            <tr class="loading-row"><td colspan="8"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Quiz Form Modal -->
+<div id="quiz-form-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h3 id="quiz-modal-title">➕ كويز جديد</h3>
+      <button data-close-modal class="btn btn-ghost btn-xs">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="quiz-form">
+        <div class="input-row">
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">عنوان الكويز</label>
+            <input type="text" name="title" required placeholder="مثال: كويز الكيمياء — الفصل الأول">
+          </div>
+          <div class="form-group">
+            <label class="form-label">الصف</label>
+            <input type="text" name="grade_level" placeholder="ثالثة ثانوي">
+          </div>
+          <div class="form-group">
+            <label class="form-label">النظام</label>
+            <input type="text" name="edu_system" placeholder="مصري">
+          </div>
+          <div class="form-group">
+            <label class="form-label">التتبع</label>
+            <input type="text" name="track" placeholder="علمي">
+          </div>
+          <div class="form-group">
+            <label class="form-label">المادة</label>
+            <input type="text" name="subject" placeholder="كيمياء">
+          </div>
+          <div class="form-group">
+            <label class="form-label">تاريخ الكويز</label>
+            <input type="date" name="quiz_date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">يفتح في</label>
+            <input type="datetime-local" name="open_at">
+          </div>
+          <div class="form-group">
+            <label class="form-label">يغلق في</label>
+            <input type="datetime-local" name="close_at">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">رابط الكويز</label>
+            <input type="url" name="quiz_url" placeholder="https://...">
+          </div>
+          <div class="form-group" style="display:flex;align-items:center;gap:.5rem">
+            <input type="checkbox" name="is_visible" id="is_visible_chk">
+            <label for="is_visible_chk" class="form-label" style="margin:0">ظاهر للطلاب</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-2">💾 حفظ الكويز</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Grades Modal -->
+<div id="grades-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h3 id="grades-modal-title">📊 درجات الكويز</h3>
+      <button data-close-modal class="btn btn-ghost btn-xs">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="csv-quiz-id">
+      <div class="card mb-2">
+        <div class="card-title">📤 رفع درجات CSV</div>
+        <p class="text-sm text-muted mb-1">الأعمدة المتوقعة: phone, name, score, max_score</p>
+        <input type="file" accept=".csv" onchange="handleGradesCSV(this)"
+          style="color:var(--text-primary);font-size:.82rem">
+      </div>
+      <div id="grades-body"><div class="spinner"></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/admin-mahmoud.js"></script>
+<script>
+  window._adminInitFn = initMahmoudQuizzes;
+  document.addEventListener('DOMContentLoaded', () => {
+    if (checkAccess()) initMahmoudQuizzes();
+  });
+</script>
+</body>
+</html>

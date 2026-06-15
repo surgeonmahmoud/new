@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة التقارير — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+
+<div id="admin-login-overlay">
+  <div class="login-card">
+    <div class="logo">🏆</div>
+    <h2>دوري المذاكراوية</h2>
+    <p>لوحة تحكم الأدمن — محمود</p>
+    <div class="form-group">
+      <input type="password" id="login-code-input" placeholder="أدخل كود الدخول" autocomplete="off">
+    </div>
+    <button id="login-btn" class="btn btn-primary btn-block btn-lg">دخول</button>
+  </div>
+</div>
+
+<div class="admin-shell">
+  <nav class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="/assets/img/league-logo.png" alt="logo" class="admin-logo-img" />
+      <div class="brand">دوري المذاكراوية <span>Admin — محمود</span></div>
+    </div>
+    <div class="sidebar-nav" id="admin-nav"></div>
+    <div class="sidebar-footer">
+      <button id="admin-logout-btn" class="btn btn-ghost btn-sm btn-block">🚪 خروج</button>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1>📋 إدارة التقارير</h1>
+    </div>
+
+    <div class="admin-content">
+
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">الحالة</label>
+          <select id="rfilter-status">
+            <option value="">الكل</option>
+            <option value="pending">معلق</option>
+            <option value="approved">مقبول</option>
+            <option value="rejected">مرفوض</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">التاريخ</label>
+          <input type="date" id="rfilter-date">
+        </div>
+        <div class="form-group" style="align-self:flex-end">
+          <button id="reports-filter-btn" class="btn btn-primary">🔍 بحث</button>
+        </div>
+        <div class="form-group" style="align-self:flex-end;margin-right:auto">
+          <button class="btn btn-green" onclick="reviewReport('__all__','approved')">✅ قبول الكل</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>الطالب</th>
+              <th>الدكتور</th>
+              <th>التاريخ</th>
+              <th>النقاط</th>
+              <th>الساعات</th>
+              <th>الحالة</th>
+              <th>ملاحظة</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="reports-tbody">
+            <tr class="loading-row"><td colspan="8"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Report Detail Modal -->
+<div id="report-detail-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h3>🔍 تفاصيل التقرير</h3>
+      <button data-close-modal class="btn btn-ghost btn-xs">✕</button>
+    </div>
+    <div class="modal-body" id="report-detail-body">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/admin-mahmoud.js"></script>
+<script>
+  window._adminInitFn = initMahmoudReports;
+  document.addEventListener('DOMContentLoaded', () => {
+    if (checkAccess()) initMahmoudReports();
+  });
+</script>
+  <script src="/assets/js/admin-phase4.js"></script>
+</body>
+</html>

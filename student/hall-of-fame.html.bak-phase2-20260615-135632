@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hall of Fame — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<div id="hofPage" class="app-shell">
+
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-brand">
+      <img src="/assets/img/league-logo.png" alt="logo" class="nav-logo-img" />
+      <div class="brand-title">⚽ دوري المذاكراوية</div>
+      <div class="brand-sub">منصة المذاكرة التنافسية</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/student/home.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="/student/report.html"><span class="nav-icon">📋</span> تقرير الإنجاز</a></li>
+      <li><a href="/student/operation.html"><span class="nav-icon">⚡</span> Operation Room</a></li>
+      <li><a href="/student/quiz.html"><span class="nav-icon">📝</span> كويز 9</a></li>
+      <li><a href="/student/doctor-question.html"><span class="nav-icon">💬</span> سؤال الدكتور</a></li>
+      <li><a href="/student/hall-of-fame.html" class="nav-active"><span class="nav-icon">🏆</span> Hall of Fame</a></li>
+      <li><a href="/student/leaderboards.html"><span class="nav-icon">📊</span> جداول الدوري</a></li>
+      <li class="nav-logout"><a href="#" onclick="logoutStudent();return false;"><span class="nav-icon">🚪</span> خروج</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+    <header class="page-header">
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="page-title">🏆 Hall of Fame</div>
+    </header>
+
+    <main class="page-body">
+      <div id="hofContainer">
+        <div class="state-box loading-box"><span class="spinner"></span><p>جاري التحميل…</p></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script>
+const HOF_CATEGORIES = [
+  { key: 'general',    label: 'بطل الدوري',      badge: '🥇', field: 'total_score',     suffix: 'نقطة',   view: 'v_leaderboard_general' },
+  { key: 'questions',  label: 'هداف الدوري',     badge: '🎯', field: 'total_questions',  suffix: 'سؤال',  view: 'v_leaderboard_questions' },
+  { key: 'focus',      label: 'بطل التركيز',     badge: '⚡', field: 'operation_minutes',suffix: 'دقيقة', view: 'v_leaderboard_focus' },
+  { key: 'persistent', label: 'المثابر',          badge: '📚', field: 'total_study_hours',suffix: 'ساعة', view: 'v_leaderboard_persistent' },
+  { key: 'streak',     label: 'حارس السلسلة',    badge: '🔥', field: 'current_streak',   suffix: 'يوم',  view: null },
+];
+
+document.addEventListener('DOMContentLoaded', async () => {
+  requireStudentAuth();
+  initNavToggle();
+  const db = window.supabaseClient;
+  const container = qs('#hofContainer');
+
+  const results = [];
+
+  for (const cat of HOF_CATEGORIES) {
+    try {
+      let top = null;
+      if (cat.view) {
+        const { data } = await db.from(cat.view)
+          .select('student_name,' + cat.field)
+          .order(cat.field, { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        top = data;
+      } else if (cat.key === 'streak') {
+        const { data } = await db.from('students')
+          .select('name, current_streak')
+          .order('current_streak', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (data) top = { student_name: data.name, current_streak: data.current_streak };
+      }
+      results.push({ cat, top });
+    } catch {
+      results.push({ cat, top: null });
+    }
+  }
+
+  if (results.every(r => !r.top)) {
+    container.innerHTML = emptyHtml('Hall of Fame فاضل… ابدأ المذاكرة واملاه! 💪');
+    return;
+  }
+
+  container.innerHTML = `
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--gold)">أبطال الدوري</div>
+      <p class="text-muted" style="font-size:0.85rem;margin-top:4px">أكثر الطلاب تميزاً على المنصة</p>
+    </div>
+    <div class="hof-grid">
+      ${results.map(({ cat, top }) => {
+        if (!top) return `
+          <div class="hof-card">
+            <div class="hof-badge">${cat.badge}</div>
+            <div class="hof-category">${cat.label}</div>
+            <div class="hof-name" style="color:var(--text-muted);font-size:0.85rem">ما اتحددش بعد</div>
+          </div>`;
+        const val = top[cat.field] ?? 0;
+        return `
+          <div class="hof-card">
+            <div class="hof-badge">${cat.badge}</div>
+            <div class="hof-category">${cat.label}</div>
+            <div class="hof-name">${safeText(top.student_name)}</div>
+            <div class="hof-value">${formatNumber(val)} ${cat.suffix}</div>
+          </div>`;
+      }).join('')}
+    </div>`;
+});
+</script>
+<a href="https://t.me/Mahmoud_M_Hassan101BOT" class="support-float" data-support-link aria-label="support">💬</a>
+</body>
+</html>

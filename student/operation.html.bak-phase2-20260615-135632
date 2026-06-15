@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operation Room — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <style>
+    .op-setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width:600px){ .op-setup-grid { grid-template-columns:1fr; } }
+    .session-header { text-align:center; margin-bottom:16px; }
+    .session-task-label { font-size:0.95rem; font-weight:700; color:var(--cyan); text-align:center; margin-bottom:8px; }
+    .break-msg { text-align:center; color:var(--text-muted); margin-bottom:8px; font-size:0.9rem; }
+    .done-hero { text-align:center; padding:32px 16px; }
+    .done-hero .done-icon { font-size:4rem; margin-bottom:12px; }
+    .done-hero .done-title { font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--green); }
+  </style>
+</head>
+<body>
+<div id="operationPage" class="app-shell">
+
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-brand">
+      <img src="/assets/img/league-logo.png" alt="logo" class="nav-logo-img" />
+      <div class="brand-title">⚽ دوري المذاكراوية</div>
+      <div class="brand-sub">منصة المذاكرة التنافسية</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/student/home.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="/student/report.html"><span class="nav-icon">📋</span> تقرير الإنجاز</a></li>
+      <li><a href="/student/operation.html" class="nav-active"><span class="nav-icon">⚡</span> Operation Room</a></li>
+      <li><a href="/student/quiz.html"><span class="nav-icon">📝</span> كويز 9</a></li>
+      <li><a href="/student/doctor-question.html"><span class="nav-icon">💬</span> سؤال الدكتور</a></li>
+      <li><a href="/student/hall-of-fame.html"><span class="nav-icon">🏆</span> Hall of Fame</a></li>
+      <li><a href="/student/leaderboards.html"><span class="nav-icon">📊</span> جداول الدوري</a></li>
+      <li class="nav-logout"><a href="#" onclick="logoutStudent();return false;"><span class="nav-icon">🚪</span> خروج</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+    <header class="page-header">
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="page-title">⚡ Operation Room</div>
+    </header>
+
+    <main class="page-body">
+
+      <!-- PHASE: Setup -->
+      <div class="op-phase" id="phase-setup">
+        <div class="card mb-3">
+          <div class="card-title">🛠 إعداد الجلسة</div>
+          <div class="op-setup-grid">
+            <div class="form-group">
+              <label for="opDuration">مدة الجلسة</label>
+              <select id="opDuration" class="form-select">
+                <option value="30">30 دقيقة — مهمة واحدة</option>
+                <option value="50">50 دقيقة — مهمتان</option>
+                <option value="60" selected>60 دقيقة — مهمتان</option>
+                <option value="90">90 دقيقة — 4 مهام</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="opBreak">وقت الاستراحة</label>
+              <select id="opBreak" class="form-select">
+                <option value="5">5 دقائق</option>
+                <option value="10" selected>10 دقائق</option>
+                <option value="15">15 دقيقة</option>
+                <option value="20">20 دقيقة</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="opSubject">المادة الأساسية</label>
+            <input id="opSubject" class="form-input" type="text" placeholder="مثال: فيزياء" />
+          </div>
+        </div>
+
+        <div class="section-title">📝 المهام</div>
+        <div id="taskForms"></div>
+
+        <button id="startOpBtn" class="btn btn-success btn-full btn-lg mt-2">🚀 ابدأ الجلسة</button>
+      </div>
+
+      <!-- PHASE: Session -->
+      <div class="op-phase" id="phase-session" style="display:none">
+        <div class="card text-center">
+          <div class="session-task-label" id="currentTaskName">—</div>
+          <div class="op-timer-display" id="sessionTimer">00:00</div>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap" class="mt-2">
+            <button id="nextTaskBtn" class="btn btn-primary">مهمة كمان ←</button>
+            <button id="endSessionBtn" class="btn btn-danger">إنهاء الجلسة</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE: Break -->
+      <div class="op-phase" id="phase-break" style="display:none">
+        <div class="card text-center">
+          <div class="card-title" style="color:var(--cyan)">☕ استراحة</div>
+          <p class="break-msg">خد نفسك… المهمة الجاية شغالة</p>
+          <div class="op-break-timer" id="breakTimer">00:00</div>
+          <button id="skipBreakBtn" class="btn btn-ghost mt-2">تخطي الاستراحة ←</button>
+        </div>
+      </div>
+
+      <!-- PHASE: Done -->
+      <div class="op-phase" id="phase-done" style="display:none">
+        <div class="card">
+          <div class="done-hero">
+            <div class="done-icon">🏅</div>
+            <div class="done-title">أتممت الجلسة!</div>
+            <p class="text-muted mt-1">شغل تمام يا بطل — الإنجازات اتسجلت</p>
+          </div>
+          <div id="sessionSummary" class="mt-2"></div>
+          <button id="resetOpBtn" class="btn btn-primary btn-full mt-3">جلسة جديدة 🔄</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/xp.js"></script>
+<script src="/assets/js/operation.js"></script>
+<a href="https://t.me/Mahmoud_M_Hassan101BOT" class="support-float" data-support-link aria-label="support">💬</a>
+</body>
+</html>

@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الرئيسية — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<div id="studentHomePage" class="app-shell">
+
+  <!-- Sidebar Nav -->
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-brand">
+      <img src="/assets/img/league-logo.png" alt="logo" class="nav-logo-img" />
+      <div class="brand-title">⚽ دوري المذاكراوية</div>
+      <div class="brand-sub">منصة المذاكرة التنافسية</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/student/home.html" class="nav-active"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="/student/report.html"><span class="nav-icon">📋</span> تقرير الإنجاز</a></li>
+      <li><a href="/student/operation.html"><span class="nav-icon">⚡</span> Operation Room</a></li>
+      <li><a href="/student/quiz.html"><span class="nav-icon">📝</span> كويز 9</a></li>
+      <li><a href="/student/doctor-question.html"><span class="nav-icon">💬</span> سؤال الدكتور</a></li>
+      <li><a href="/student/hall-of-fame.html"><span class="nav-icon">🏆</span> Hall of Fame</a></li>
+      <li><a href="/student/leaderboards.html"><span class="nav-icon">📊</span> جداول الدوري</a></li>
+      <li class="nav-logout"><a href="#" onclick="logoutStudent();return false;"><span class="nav-icon">🚪</span> خروج</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="page-header">
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="page-title">الرئيسية</div>
+      <span class="text-muted" style="font-size:0.8rem">مرحباً، <strong id="studentName">—</strong></span>
+    </header>
+
+    <main class="page-body">
+
+      <!-- Meta Strip -->
+      <div class="student-meta-strip">
+        <span class="meta-chip">🎓 <strong id="metaGrade">—</strong></span>
+        <span class="meta-chip">📚 <strong id="metaEdu">—</strong></span>
+        <span class="meta-chip">🔬 <strong id="metaTrack">—</strong></span>
+        <span class="meta-chip">👨‍⚕️ <strong id="metaDoctor">—</strong></span>
+      </div>
+
+      <!-- XP Bar -->
+      <div class="xp-bar-container">
+        <div id="xpBarContainer"></div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="section-title">📈 إحصائياتك</div>
+      <div class="stats-grid">
+        <div class="stat-card accent-gold">
+          <div class="stat-value" id="statScore">—</div>
+          <div class="stat-label">نقاط الدوري</div>
+        </div>
+        <div class="stat-card accent-cyan">
+          <div class="stat-value" id="statQuestions">—</div>
+          <div class="stat-label">أسئلة حُلّت</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-value" id="statReportHours">—</div>
+          <div class="stat-label">ساعات التقارير</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-value" id="statOpHours">—</div>
+          <div class="stat-label">ساعات Operation</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statTotalHours">—</div>
+          <div class="stat-label">إجمالي الساعات</div>
+        </div>
+        <div class="stat-card accent-purple">
+          <div class="stat-value" id="statXp">—</div>
+          <div class="stat-label">XP مكتسبة</div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-value" id="statStreak">—</div>
+          <div class="stat-label">🔥 Streak حالي</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBestStreak">—</div>
+          <div class="stat-label">🏅 أفضل Streak</div>
+        </div>
+      </div>
+
+      <!-- Quick Cards -->
+      <div class="section-title">⚡ وصول سريع</div>
+      <div class="quick-grid">
+        <a href="/student/report.html" class="quick-card">
+          <span class="qc-icon">📋</span>
+          تقرير الإنجاز
+        </a>
+        <a href="/student/operation.html" class="quick-card">
+          <span class="qc-icon">⚡</span>
+          Operation Room
+        </a>
+        <a href="/student/hall-of-fame.html" class="quick-card">
+          <span class="qc-icon">🏆</span>
+          Hall of Fame
+        </a>
+        <a href="/student/leaderboards.html" class="quick-card">
+          <span class="qc-icon">📊</span>
+          جداول الدوري
+        </a>
+        <a href="/student/quiz.html" class="quick-card">
+          <span class="qc-icon">📝</span>
+          كويز 9
+        </a>
+        <a href="/student/doctor-question.html" class="quick-card">
+          <span class="qc-icon">💬</span>
+          سؤال الدكتور
+        </a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Doctor Group Modal -->
+<div class="modal-overlay" id="doctorModal">
+  <div class="modal-box">
+    <div class="modal-title">👨‍⚕️ بتتابع مع دكتورة؟</div>
+    <p class="text-muted mb-2" style="text-align:center;font-size:0.85rem">اختر مجموعتك عشان تظهر في المكان الصح</p>
+    <div id="doctorModalList"></div>
+    <button class="btn btn-ghost btn-full mt-2" onclick="closeModal('doctorModal')">مش دلوقتي</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/xp.js"></script>
+<script src="/assets/js/student.js"></script>
+<a href="https://t.me/Mahmoud_M_Hassan101BOT" class="support-float" data-support-link aria-label="support">💬</a>
+</body>
+</html>

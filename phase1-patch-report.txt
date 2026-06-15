@@ -1,0 +1,8 @@
+﻿===== PHASE 1 PATCH REPORT =====
+Project Path: D:\الموقع\mazakrawi
+BACKUP: D:\الموقع\mazakrawi\index.html -> D:\الموقع\mazakrawi\index.html.bak-phase1-20260615-132255
+UPDATED: index.html
+UPDATED: assets\js\control-gate.js
+APPENDED: assets\css\main.css phase1 styles
+OK: Logo exists assets\img\league-logo.png
+DONE

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الدكتورة / الباقة</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="doctor-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>دخول لوحة الدكتورة / الباقة</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="doctor-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="doctor-login-message" class="text-red text-sm mb-1"></div>
+        <button id="doctor-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="doctor-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header">
+      <img src="/assets/img/league-logo.png" alt="logo" class="admin-logo-img" /><div class="brand">دوري المذاكراوية <span>لوحة الدكتورة / الباقة</span></div></div>
+      <div class="sidebar-nav" id="doctor-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>لوحة الدكتورة / الباقة</h1></div>
+      <div class="admin-content">
+        <h2 id="doctor-title">لوحة الدكتورة / الباقة</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><div id="dstat-students" class="stat-value">0</div><div class="stat-label">عدد الطلاب</div></div>
+          <div class="stat-card"><div id="dstat-achievements" class="stat-value">0</div><div class="stat-label">الإنجازات</div></div>
+          <div class="stat-card"><div id="dstat-study-hours" class="stat-value">0</div><div class="stat-label">ساعات المذاكرة</div></div>
+          <div class="stat-card"><div id="dstat-questions" class="stat-value">0</div><div class="stat-label">الأسئلة</div></div>
+          <div class="stat-card"><div id="dstat-operation-hours" class="stat-value">0</div><div class="stat-label">ساعات Operation</div></div>
+          <div class="stat-card"><div id="dstat-pending" class="stat-value">0</div><div class="stat-label">تقارير معلقة</div></div>
+        </div>
+        <div class="card"><div class="card-title">🏆 أفضل طلاب المجموعة</div><div class="table-wrap"><table><thead><tr><th>#</th><th>الطالب</th><th>الهاتف</th><th>النقاط</th><th>XP</th><th>الحالة</th></tr></thead><tbody id="doctor-top-students"></tbody></table></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/doctor-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initDoctorDashboard);</script>
+</body>
+</html>

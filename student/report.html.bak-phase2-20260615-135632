@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تقرير الإنجاز — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<div id="reportPage" class="app-shell">
+
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-brand">
+      <img src="/assets/img/league-logo.png" alt="logo" class="nav-logo-img" />
+      <div class="brand-title">⚽ دوري المذاكراوية</div>
+      <div class="brand-sub">منصة المذاكرة التنافسية</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/student/home.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="/student/report.html" class="nav-active"><span class="nav-icon">📋</span> تقرير الإنجاز</a></li>
+      <li><a href="/student/operation.html"><span class="nav-icon">⚡</span> Operation Room</a></li>
+      <li><a href="/student/quiz.html"><span class="nav-icon">📝</span> كويز 9</a></li>
+      <li><a href="/student/doctor-question.html"><span class="nav-icon">💬</span> سؤال الدكتور</a></li>
+      <li><a href="/student/hall-of-fame.html"><span class="nav-icon">🏆</span> Hall of Fame</a></li>
+      <li><a href="/student/leaderboards.html"><span class="nav-icon">📊</span> جداول الدوري</a></li>
+      <li class="nav-logout"><a href="#" onclick="logoutStudent();return false;"><span class="nav-icon">🚪</span> خروج</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+    <header class="page-header">
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="page-title">📋 تقرير الإنجاز اليومي</div>
+    </header>
+
+    <main class="page-body">
+      <div id="todayReportBanner" style="display:none"></div>
+
+      <!-- Add Achievement Form -->
+      <div class="card mb-3">
+        <div class="card-title">➕ أضف إنجاز</div>
+        <div id="achAlert" style="display:none"></div>
+        <form id="achForm" novalidate>
+          <div class="form-group">
+            <label for="achSubject">المادة <span class="text-danger">*</span></label>
+            <input id="achSubject" class="form-input" type="text" placeholder="مثال: فيزياء، كيمياء، رياضة…" />
+          </div>
+          <div class="form-group">
+            <label for="achType">نوع النشاط <span class="text-danger">*</span></label>
+            <select id="achType" class="form-select">
+              <option value="">اختر نوع النشاط</option>
+              <option value="questions">حل أسئلة</option>
+              <option value="lesson">درس عادي</option>
+              <option value="chapter">فصل / باب</option>
+              <option value="unit">وحدة / يونت</option>
+              <option value="comprehensive_exam">امتحان شامل</option>
+              <option value="center_attendance">حضور سنتر</option>
+              <option value="review_video">فيديو مراجعة</option>
+              <option value="study_hours">ساعات مذاكرة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="achAmount">الكمية (أسئلة / دروس / …)</label>
+            <input id="achAmount" class="form-input" type="number" min="0" value="0" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label for="achHours">ساعات المذاكرة: <span id="achHoursVal">0</span> ساعة</label>
+            <input id="achHours" type="range" class="rtl-slider" min="0" max="12" step="0.5" value="0" />
+          </div>
+          <div class="form-group">
+            <label for="achNotes">ملاحظات (اختياري)</label>
+            <textarea id="achNotes" class="form-textarea" placeholder="أي تفاصيل إضافية…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">+ إضافة للتقرير</button>
+        </form>
+      </div>
+
+      <!-- Pending Achievements -->
+      <div class="section-title">📦 الإنجازات المضافة</div>
+      <div id="achievementsList"></div>
+
+      <button id="submitReportBtn" class="btn btn-gold btn-full btn-lg mt-2" disabled>
+        📤 إرسال التقرير
+      </button>
+
+      <div class="card mt-3" style="background:var(--bg3)">
+        <div class="card-title" style="font-size:0.85rem;color:var(--text-muted)">📌 نظام النقاط</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);line-height:2">
+          حل أسئلة: floor(العدد ÷ 20) &nbsp;|&nbsp;
+          درس عادي: عدد الدروس &nbsp;|&nbsp;
+          فصل/وحدة: العدد × 3 &nbsp;|&nbsp;
+          امتحان شامل: 4 &nbsp;|&nbsp;
+          سنتر: 3 &nbsp;|&nbsp;
+          فيديو مراجعة: 3 &nbsp;|&nbsp;
+          ساعات: 0 نقطة
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/xp.js"></script>
+<script src="/assets/js/report.js"></script>
+<a href="https://t.me/Mahmoud_M_Hassan101BOT" class="support-float" data-support-link aria-label="support">💬</a>
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿===== FINAL PROJECT CHECK REPORT =====
+
+Project Path: D:\الموقع\mazakrawi
+
+Created At: 06/15/2026 04:00:39
+
+
+===== EXPECTED FILES CHECK =====
+FOUND: index.html
+FOUND: login.html
+FOUND: signup.html
+FOUND: student\home.html
+FOUND: student\report.html
+FOUND: student\operation.html
+FOUND: student\quiz.html
+FOUND: student\doctor-question.html
+FOUND: student\hall-of-fame.html
+FOUND: student\leaderboards.html
+FOUND: admin-mahmoud\dashboard.html
+FOUND: admin-mahmoud\students.html
+FOUND: admin-mahmoud\reports.html
+FOUND: admin-mahmoud\operation.html
+FOUND: admin-mahmoud\quizzes.html
+FOUND: admin-mahmoud\doctor-question.html
+FOUND: admin-mahmoud\seasons.html
+FOUND: admin-mahmoud\doctors.html
+FOUND: admin-mahmoud\logs.html
+FOUND: ziad\dashboard.html
+FOUND: ziad\students.html
+FOUND: ziad\reports.html
+FOUND: ziad\leaderboards.html
+FOUND: ziad\analytics.html
+FOUND: doctor\dashboard.html
+FOUND: doctor\students.html
+FOUND: doctor\reports.html
+FOUND: doctor\leaderboards.html
+FOUND: doctor\logs.html
+FOUND: assets\css\main.css
+FOUND: assets\css\admin.css
+FOUND: assets\js\supabase.js
+FOUND: assets\js\utils.js
+FOUND: assets\js\auth.js
+FOUND: assets\js\student.js
+FOUND: assets\js\report.js
+FOUND: assets\js\operation.js
+FOUND: assets\js\xp.js
+FOUND: assets\js\leaderboards.js
+FOUND: assets\js\admin-mahmoud.js
+FOUND: assets\js\ziad-panel.js
+FOUND: assets\js\doctor-panel.js
+
+===== HTML DOCTYPE CHECK =====
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\doctor-question.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\doctors.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\logs.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\operation.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\quizzes.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\reports.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\seasons.html
+OK DOCTYPE: D:\الموقع\mazakrawi\admin-mahmoud\students.html
+OK DOCTYPE: D:\الموقع\mazakrawi\doctor\dashboard.html
+OK DOCTYPE: D:\الموقع\mazakrawi\doctor\leaderboards.html
+OK DOCTYPE: D:\الموقع\mazakrawi\doctor\logs.html
+OK DOCTYPE: D:\الموقع\mazakrawi\doctor\reports.html
+OK DOCTYPE: D:\الموقع\mazakrawi\doctor\students.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\doctor-question.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\hall-of-fame.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\home.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\leaderboards.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\operation.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\quiz.html
+OK DOCTYPE: D:\الموقع\mazakrawi\student\report.html
+OK DOCTYPE: D:\الموقع\mazakrawi\ziad\analytics.html
+OK DOCTYPE: D:\الموقع\mazakrawi\ziad\dashboard.html
+OK DOCTYPE: D:\الموقع\mazakrawi\ziad\leaderboards.html
+OK DOCTYPE: D:\الموقع\mazakrawi\ziad\reports.html
+OK DOCTYPE: D:\الموقع\mazakrawi\ziad\students.html
+OK DOCTYPE: D:\الموقع\mazakrawi\index.html
+OK DOCTYPE: D:\الموقع\mazakrawi\login.html
+OK DOCTYPE: D:\الموقع\mazakrawi\signup.html
+
+===== RISK PATTERNS CHECK =====

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <div class="landing-wrap">
+    <div class="landing-box">
+      <div class="landing-logo">⚽ دوري المذاكراوية</div>
+      <p class="landing-tagline">العبها صح… <strong>ذاكر واكسب الدوري</strong></p>
+
+      <div class="landing-btns">
+        <a href="/login.html" class="btn btn-gold btn-lg">
+          🎮 دخول لاعب
+        </a>
+        <a href="/signup.html" class="btn btn-primary btn-lg">
+          ✨ إنشاء لاعب
+        </a>
+        <div class="landing-divider">إدارة</div>
+        <a href="/admin-mahmoud/dashboard.html" class="btn btn-ghost">
+          🔐 دخول الكنترول
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+﻿===== PART 1 CHECK REPORT =====
+
+Project Path: D:\الموقع\mazakrawi
+
+
+===== FILE TREE =====
+
+FullName                                                    Length LastWriteTime        
+--------                                                    ------ -------------        
+D:\الموقع\mazakrawi\assets                                         2026-06-15 3:19:23 AM
+D:\الموقع\mazakrawi\student                                        2026-06-15 3:23:15 AM
+D:\الموقع\mazakrawi\{assets                                        2026-06-15 3:14:28 AM
+D:\الموقع\mazakrawi\index.html                              990    2026-06-15 3:19:34 AM
+D:\الموقع\mazakrawi\login.html                              1662   2026-06-15 3:19:44 AM
+D:\الموقع\mazakrawi\part-1-check-report.txt                 106    2026-06-15 3:32:39 AM
+D:\الموقع\mazakrawi\part-1-student.txt                      47     2026-06-15 3:32:39 AM
+D:\الموقع\mazakrawi\signup.html                             3844   2026-06-15 3:20:01 AM
+D:\الموقع\mazakrawi\assets\css                                     2026-06-15 3:19:23 AM
+D:\الموقع\mazakrawi\assets\js                                      2026-06-15 3:17:38 AM
+D:\الموقع\mazakrawi\assets\css\main.css                     22948  2026-06-15 3:19:23 AM
+D:\الموقع\mazakrawi\assets\js\auth.js                       5457   2026-06-15 3:15:28 AM
+D:\الموقع\mazakrawi\assets\js\leaderboards.js               2570   2026-06-15 3:17:38 AM
+D:\الموقع\mazakrawi\assets\js\operation.js                  11313  2026-06-15 3:17:23 AM
+D:\الموقع\mazakrawi\assets\js\report.js                     6535   2026-06-15 3:16:31 AM
+D:\الموقع\mazakrawi\assets\js\student.js                    3706   2026-06-15 3:16:00 AM
+D:\الموقع\mazakrawi\assets\js\supabase.js                   186    2026-06-15 3:14:32 AM
+D:\الموقع\mazakrawi\assets\js\utils.js                      5469   2026-06-15 3:15:01 AM
+D:\الموقع\mazakrawi\assets\js\xp.js                         1979   2026-06-15 3:15:41 AM
+D:\الموقع\mazakrawi\student\doctor-question.html            7974   2026-06-15 3:22:30 AM
+D:\الموقع\mazakrawi\student\hall-of-fame.html               5124   2026-06-15 3:22:58 AM
+D:\الموقع\mazakrawi\student\home.html                       5812   2026-06-15 3:20:30 AM
+D:\الموقع\mazakrawi\student\leaderboards.html               2831   2026-06-15 3:23:15 AM
+D:\الموقع\mazakrawi\student\operation.html                  6099   2026-06-15 3:21:27 AM
+D:\الموقع\mazakrawi\student\quiz.html                       4659   2026-06-15 3:21:52 AM
+D:\الموقع\mazakrawi\student\report.html                     5298   2026-06-15 3:20:56 AM
+D:\الموقع\mazakrawi\{assets\{css,js},student,admin-mahmoud}        2026-06-15 3:14:28 AM
+
+
+
+===== EXPECTED FILES CHECK =====
+FOUND: assets\js\supabase.js
+FOUND: assets\js\utils.js
+FOUND: assets\js\auth.js
+FOUND: assets\js\xp.js
+FOUND: assets\js\student.js
+FOUND: assets\js\report.js
+FOUND: assets\js\operation.js
+FOUND: assets\js\leaderboards.js
+FOUND: assets\css\main.css
+FOUND: index.html
+FOUND: login.html
+FOUND: signup.html
+FOUND: student\home.html
+FOUND: student\report.html
+FOUND: student\operation.html
+FOUND: student\quiz.html
+FOUND: student\doctor-question.html
+FOUND: student\hall-of-fame.html
+FOUND: student\leaderboards.html
+
+===== WRONG COLUMN / RISK CHECKS =====
+
+--- Pattern: submission_date ---
+OK: Not found
+
+--- Pattern: planned_duration ---
+OK: Not found
+
+--- Pattern: actual_duration ---
+OK: Not found
+
+--- Pattern: xp_amount ---
+OK: Not found
+
+--- Pattern: total_xp ---
+FOUND in D:\الموقع\mazakrawi\assets\js\student.js line 32: setEl('statXp', formatNumber(totals.total_xp));
+FOUND in D:\الموقع\mazakrawi\assets\js\student.js line 33: renderXpBar(safeNum(totals.total_xp), 'xpBarContainer');
+
+--- Pattern: total_league_points ---
+OK: Not found
+
+--- Pattern: xp_earned ---
+OK: Not found
+
+--- Pattern: league_points" ---
+OK: Not found
+
+--- Pattern: .order('league_points' ---
+OK: Not found
+
+--- Pattern: .order("league_points" ---
+OK: Not found
+
+--- Pattern: .order('focus_score' ---
+OK: Not found
+
+--- Pattern: .order('streak' ---
+OK: Not found
+
+--- Pattern: const db = window.supabaseClient ---
+FOUND in D:\الموقع\mazakrawi\assets\js\auth.js line 20: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\auth.js line 81: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\auth.js line 125: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\leaderboards.js line 8: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\operation.js line 233: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\report.js line 86: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\report.js line 171: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\student.js line 6: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\student.js line 90: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\xp.js line 6: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\assets\js\xp.js line 37: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\student\doctor-question.html line 73: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\student\doctor-question.html line 157: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\student\doctor-question.html line 175: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\student\doctor-question.html line 194: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\student\hall-of-fame.html line 58: const db = window.supabaseClient;
+FOUND in D:\الموقع\mazakrawi\student\quiz.html line 56: const db = window.supabaseClient;
+
+===== SUPABASE PLACEHOLDER CHECK =====
+OK: URL placeholder exists
+OK: ANON KEY placeholder exists
+
+===== OUTPUT FILES =====
+
+Name                    Length LastWriteTime        
+----                    ------ -------------        
+part-1-student.txt      114634 2026-06-15 3:32:40 AM
+part-1-check-report.txt   6240 2026-06-15 3:32:40 AM
+
+

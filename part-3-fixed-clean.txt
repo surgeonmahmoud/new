@@ -1,0 +1,561 @@
+===== MOZAKRAWY PART 3 FIXED CLEAN =====
+===== FILE: /ziad/dashboard.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة كنترول دكتور زياد - المدير</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>لوحة كنترول دكتور زياد - المدير</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>لوحة كنترول دكتور زياد - المدير</h1></div>
+      <div class="admin-content">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-icon">👥</div><div id="stat-total-students" class="stat-value">0</div><div class="stat-label">إجمالي الطلاب</div></div>
+          <div class="stat-card"><div class="stat-icon">📋</div><div id="stat-total-achievements" class="stat-value">0</div><div class="stat-label">إجمالي الإنجازات</div></div>
+          <div class="stat-card"><div class="stat-icon">⏱️</div><div id="stat-total-study-hours" class="stat-value">0</div><div class="stat-label">ساعات المذاكرة</div></div>
+          <div class="stat-card"><div class="stat-icon">❓</div><div id="stat-total-questions" class="stat-value">0</div><div class="stat-label">إجمالي الأسئلة</div></div>
+          <div class="stat-card"><div class="stat-icon">⚙️</div><div id="stat-operation-hours" class="stat-value">0</div><div class="stat-label">ساعات Operation</div></div>
+          <div class="stat-card"><div class="stat-icon">📝</div><div id="stat-quizzes" class="stat-value">0</div><div class="stat-label">عدد الكويزات</div></div>
+          <div class="stat-card"><div class="stat-icon">💬</div><div id="stat-doctor-answers" class="stat-value">0</div><div class="stat-label">إجابات سؤال الدكتور</div></div>
+          <div class="stat-card"><div class="stat-icon">⏳</div><div id="stat-pending-reports" class="stat-value">0</div><div class="stat-label">تقارير Pending</div></div>
+        </div>
+        <div class="grid-3 mb-2">
+          <div class="card"><div class="card-title">📚 أكثر المواد نشاطًا</div><div id="top-subjects"></div></div>
+          <div class="card"><div class="card-title">🎓 أكثر الصفوف نشاطًا</div><div id="top-grades"></div></div>
+          <div class="card"><div class="card-title">🧭 أكثر المسارات نشاطًا</div><div id="top-tracks"></div></div>
+        </div>
+        <div class="grid-2 mb-2">
+          <div class="card"><div class="card-title">👩‍⚕️ أكثر مجموعات الدكتور نشاطًا</div><div id="top-doctor-groups"></div></div>
+          <div class="card"><div class="card-title">🏆 أكثر الطلاب نشاطًا</div><div id="top-students"></div></div>
+        </div>
+        <div class="card"><div class="card-title">🥇 معاينة جدول الدوري</div><div id="leaderboard-preview"></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadDashboard);</script>
+</body>
+</html>
+===== FILE: /ziad/students.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلاب المنصة - دكتور زياد</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>طلاب المنصة - دكتور زياد</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>طلاب المنصة - دكتور زياد</h1></div>
+      <div class="admin-content">
+        <div class="filter-bar">
+          <div class="form-group"><label class="form-label">الصف</label><select id="filter-grade"><option value="">كل الصفوف</option></select></div>
+          <div class="form-group"><label class="form-label">النظام</label><select id="filter-system"><option value="">كل الأنظمة</option></select></div>
+          <div class="form-group"><label class="form-label">المسار</label><select id="filter-track"><option value="">كل المسارات</option></select></div>
+          <div class="form-group"><label class="form-label">الدكتورة</label><select id="filter-doctor"><option value="">كل المجموعات</option></select></div>
+          <div class="form-group"><label class="form-label">الحالة</label><select id="filter-status"><option value="">كل الحالات</option><option value="active">نشط</option><option value="frozen">مجمد</option><option value="inactive">غير نشط</option></select></div>
+          <div class="form-group"><label class="form-label">بحث</label><input id="filter-search" placeholder="اسم أو رقم"></div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>الاسم</th><th>الهاتف</th><th>الصف</th><th>النظام</th><th>المسار</th><th>الدكتورة</th><th>النقاط</th><th>XP</th><th>الساعات</th><th>الحالة</th></tr></thead><tbody id="students-table-body"></tbody></table></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadStudents);</script>
+</body>
+</html>
+===== FILE: /ziad/reports.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تقارير المنصة - دكتور زياد</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>تقارير المنصة - دكتور زياد</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>تقارير المنصة - دكتور زياد</h1></div>
+      <div class="admin-content">
+        <div class="filter-bar">
+          <div class="form-group"><label class="form-label">من</label><input type="date" id="filter-date-from"></div>
+          <div class="form-group"><label class="form-label">إلى</label><input type="date" id="filter-date-to"></div>
+          <div class="form-group"><label class="form-label">الدكتورة</label><select id="filter-doctor"><option value="">كل المجموعات</option></select></div>
+          <div class="form-group"><label class="form-label">المادة</label><select id="filter-subject"><option value="">كل المواد</option></select></div>
+          <div class="form-group"><label class="form-label">الحالة</label><select id="filter-status"><option value="">كل الحالات</option></select></div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>الطالب</th><th>الدكتورة</th><th>المادة</th><th>النشاط</th><th>الكمية</th><th>الساعات</th><th>النقاط</th><th>الحالة</th></tr></thead><tbody id="reports-table-body"></tbody></table></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadReports);</script>
+</body>
+</html>
+===== FILE: /ziad/leaderboards.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جداول الدوري - دكتور زياد</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>جداول الدوري - دكتور زياد</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>جداول الدوري - دكتور زياد</h1></div>
+      <div class="admin-content">
+        <div class="grid-2">
+          <div class="card"><div class="card-title">🏆 بطل الجولة</div><div id="lb-general"></div></div>
+          <div class="card"><div class="card-title">🎯 هداف الدوري</div><div id="lb-questions"></div></div>
+          <div class="card"><div class="card-title">⚙️ أبطال التركيز</div><div id="lb-focus"></div></div>
+          <div class="card"><div class="card-title">🧱 المثابر</div><div id="lb-persistent"></div></div>
+          <div class="card"><div class="card-title">📝 كويز 9</div><div id="lb-quiz"></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadLeaderboards);</script>
+</body>
+</html>
+===== FILE: /ziad/analytics.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تحليلات المنصة - دكتور زياد</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="ziad-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>لوحة كنترول دكتور زياد - المدير</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="ziad-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="ziad-login-error" class="text-red text-sm mb-1"></div>
+        <button id="ziad-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ziad-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>تحليلات المنصة - دكتور زياد</span></div></div>
+      <div class="sidebar-nav" id="ziad-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>تحليلات المنصة - دكتور زياد</h1></div>
+      <div class="admin-content">
+        <div class="grid-2">
+          <div class="card"><div class="card-title">📋 إنجازات آخر 7 أيام</div><div id="chart-daily-achievements"></div></div>
+          <div class="card"><div class="card-title">⏱️ ساعات المذاكرة آخر 7 أيام</div><div id="chart-study-hours"></div></div>
+          <div class="card"><div class="card-title">❓ الأسئلة آخر 7 أيام</div><div id="chart-questions"></div></div>
+          <div class="card"><div class="card-title">👩‍⚕️ مجموعات الدكتور</div><div id="chart-doctor-groups"></div></div>
+          <div class="card"><div class="card-title">📚 المواد</div><div id="chart-subjects"></div></div>
+          <div class="card"><div class="card-title">🎓 الصفوف والمسارات</div><div id="chart-grades-tracks"></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/ziad-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initZiadAnalytics);</script>
+</body>
+</html>
+===== FILE: /assets/js/ziad-panel.js =====
+(function(){
+'use strict';
+function db(){return window.supabaseClient;}
+function el(id){return document.getElementById(id);}
+function n(v){v=Number(v);return Number.isFinite(v)?v:0;}
+function fmt(v){return n(v).toLocaleString('ar-EG');}
+function esc(v){return String(v??'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function maskPhone(p){p=String(p||''); if(p.length<5)return '****'; return p.slice(0,2)+'*****'+p.slice(-3);}
+function set(id,v){var x=el(id); if(x)x.textContent=v;}
+function mini(id,items,empty){var x=el(id); if(!x)return; if(!items||!items.length){x.innerHTML='<p class="text-muted">'+esc(empty||'لا توجد بيانات')+'</p>';return;} x.innerHTML=items.map(function(i,k){return '<div class="lb-row"><div class="lb-rank">'+esc(i.rank||k+1)+'</div><div class="lb-name">'+esc(i.label)+'</div><div class="lb-val">'+esc(i.value||'')+'</div></div>';}).join('');}
+function bars(id,items){var x=el(id); if(!x)return; if(!items||!items.length){x.innerHTML='<p class="text-muted">لا توجد بيانات</p>';return;} var m=Math.max.apply(null,items.map(i=>n(i.value)))||1; x.innerHTML=items.map(function(i){var w=Math.max(3,Math.min(100,n(i.value)/m*100));return '<div class="mb-1"><div class="flex-between text-sm"><span>'+esc(i.label)+'</span><span>'+esc(i.display||fmt(i.value))+'</span></div><div style="height:8px;background:var(--bg-input);border-radius:9px;overflow:hidden"><div style="width:'+w+'%;height:100%;background:var(--accent-primary)"></div></div></div>';}).join('');}
+function add(map,key,val){key=key||'غير محدد';map.set(key,(map.get(key)||0)+n(val||1));}
+function top(map,limit){return Array.from(map.entries()).sort((a,b)=>b[1]-a[1]).slice(0,limit||5).map((x,i)=>({rank:i+1,label:x[0],value:fmt(x[1])}));}
+function fillSelect(id,vals,label){var s=el(id); if(!s)return; var old=s.value; var u=[...new Set((vals||[]).filter(Boolean).map(String))].sort(); s.innerHTML='<option value="">'+esc(label||'الكل')+'</option>'+u.map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join(''); if(u.includes(old))s.value=old;}
+function nav(){var x=el('ziad-nav'); if(!x)return; var links=[['الرئيسية','/ziad/dashboard.html'],['الطلاب','/ziad/students.html'],['التقارير','/ziad/reports.html'],['جداول الدوري','/ziad/leaderboards.html'],['التحليلات','/ziad/analytics.html']]; x.innerHTML=links.map(l=>'<a class="'+(location.pathname===l[1]?'active':'')+'" href="'+l[1]+'">'+l[0]+'</a>').join('')+'<a href="#" onclick="logoutZiad();return false">خروج</a>';}
+async function remoteCode(){try{var r=await db().from('app_settings').select('value').eq('key','ziad_manager_code').maybeSingle();var v=r.data&&r.data.value;if(!v)return null;if(typeof v==='object'&&v.code)return String(v.code);return String(v).replace(/^\{"code":"?|"?\}$/g,'');}catch(e){return null;}}
+async function loginZiad(){var code=(el('ziad-code')||{}).value||'';code=code.trim();var rc=await remoteCode();if(code==='9876'||(rc&&code===rc)){localStorage.setItem('ziadAccess','true');location.reload();}else{var m=el('ziad-login-error');if(m)m.textContent='كود الدخول غير صحيح';}}
+function logoutZiad(){localStorage.removeItem('ziadAccess');location.href='/ziad/dashboard.html';}
+function auth(){var ok=localStorage.getItem('ziadAccess')==='true';var o=el('ziad-login-overlay'),a=el('ziad-app'),b=el('ziad-login-btn'),c=el('ziad-code'); if(b)b.onclick=loginZiad; if(c)c.onkeydown=e=>{if(e.key==='Enter')loginZiad();}; if(o)o.style.display=ok?'none':'flex'; if(a)a.style.display=ok?'flex':'none'; if(ok)nav(); return ok;}
+async function initZiadDashboard(){if(!auth())return;var d=db();var totals=(await d.from('v_student_platform_totals').select('*')).data||[];set('stat-total-students',fmt(totals.length));set('stat-total-achievements',fmt(totals.reduce((s,r)=>s+n(r.total_score),0)));set('stat-total-study-hours',fmt(totals.reduce((s,r)=>s+n(r.total_study_hours),0).toFixed(1)));set('stat-total-questions',fmt(totals.reduce((s,r)=>s+n(r.total_questions),0)));set('stat-operation-hours',fmt((totals.reduce((s,r)=>s+n(r.operation_minutes),0)/60).toFixed(1)));set('stat-quizzes',fmt((await d.from('quizzes').select('id',{count:'exact',head:true})).count||0));set('stat-doctor-answers',fmt((await d.from('doctor_answers').select('id',{count:'exact',head:true})).count||0));set('stat-pending-reports',fmt((await d.from('report_submissions').select('id',{count:'exact',head:true}).eq('status','pending')).count||0));var reps=(await d.from('daily_reports').select('subject,points').limit(1000)).data||[];var sm=new Map(),gm=new Map(),tm=new Map(),dm=new Map();reps.forEach(r=>add(sm,r.subject,n(r.points)||1));totals.forEach(r=>{add(gm,r.grade_level,n(r.total_score)||1);add(tm,r.track,n(r.total_score)||1);add(dm,r.doctor_group,n(r.total_score)||1);});mini('top-subjects',top(sm));mini('top-grades',top(gm));mini('top-tracks',top(tm));mini('top-doctor-groups',top(dm));mini('top-students',totals.sort((a,b)=>n(b.total_score)-n(a.total_score)).slice(0,5).map((r,i)=>({rank:i+1,label:r.student_name,value:fmt(r.total_score)})));mini('leaderboard-preview',totals.slice(0,5).map((r,i)=>({rank:i+1,label:r.student_name,value:fmt(r.total_score)})));}
+async function initZiadStudents(){if(!auth())return;var totals=(await db().from('v_student_platform_totals').select('*').order('total_score',{ascending:false})).data||[];var studs=(await db().from('students').select('id,is_active,is_frozen')).data||[];var st=new Map(studs.map(s=>[s.id,s]));fillSelect('filter-grade',totals.map(r=>r.grade_level),'كل الصفوف');fillSelect('filter-system',totals.map(r=>r.edu_system),'كل الأنظمة');fillSelect('filter-track',totals.map(r=>r.track),'كل المسارات');fillSelect('filter-doctor',totals.map(r=>r.doctor_group),'كل المجموعات');function render(){var g=el('filter-grade').value,sy=el('filter-system').value,tr=el('filter-track').value,doc=el('filter-doctor').value,sta=el('filter-status').value,se=(el('filter-search').value||'').toLowerCase();var rows=totals.filter(r=>{var s=st.get(r.student_id)||{};var status=s.is_frozen?'frozen':s.is_active===false?'inactive':'active';return(!g||r.grade_level===g)&&(!sy||r.edu_system===sy)&&(!tr||r.track===tr)&&(!doc||r.doctor_group===doc)&&(!sta||status===sta)&&(!se||String(r.student_name+' '+r.phone).toLowerCase().includes(se));}).map(r=>{var s=st.get(r.student_id)||{};return '<tr><td>'+esc(r.student_name)+'</td><td>'+esc(maskPhone(r.phone))+'</td><td>'+esc(r.grade_level)+'</td><td>'+esc(r.edu_system)+'</td><td>'+esc(r.track)+'</td><td>'+esc(r.doctor_group)+'</td><td>'+fmt(r.total_score)+'</td><td>'+fmt(r.total_xp)+'</td><td>'+fmt(Number(r.total_study_hours).toFixed(1))+'</td><td>'+(s.is_frozen?'مجمد':s.is_active===false?'غير نشط':'نشط')+'</td></tr>';});var b=el('students-table-body');b.innerHTML=rows.join('')||'<tr><td colspan="10">لا توجد بيانات</td></tr>';}
+['filter-grade','filter-system','filter-track','filter-doctor','filter-status','filter-search'].forEach(id=>{var x=el(id);if(x){x.oninput=render;x.onchange=render;}});render();}
+async function initZiadReports(){if(!auth())return;var d=db();var reps=(await d.from('daily_reports').select('*,students(name,doctor_group)').order('report_date',{ascending:false}).limit(1000)).data||[];fillSelect('filter-doctor',reps.map(r=>r.students&&r.students.doctor_group),'كل المجموعات');fillSelect('filter-subject',reps.map(r=>r.subject),'كل المواد');fillSelect('filter-status',reps.map(r=>r.status),'كل الحالات');function render(){var f=el('filter-date-from').value,t=el('filter-date-to').value,doc=el('filter-doctor').value,sub=el('filter-subject').value,sta=el('filter-status').value;var rows=reps.filter(r=>(!f||r.report_date>=f)&&(!t||r.report_date<=t)&&(!doc||(r.students&&r.students.doctor_group===doc))&&(!sub||r.subject===sub)&&(!sta||r.status===sta)).map(r=>'<tr><td>'+esc(r.report_date)+'</td><td>'+esc(r.students&&r.students.name)+'</td><td>'+esc(r.students&&r.students.doctor_group)+'</td><td>'+esc(r.subject)+'</td><td>'+esc(r.activity_type)+'</td><td>'+fmt(r.amount)+'</td><td>'+fmt(r.study_hours)+'</td><td>'+fmt(r.points)+'</td><td>'+esc(r.status)+'</td></tr>');el('reports-table-body').innerHTML=rows.join('')||'<tr><td colspan="9">لا توجد بيانات</td></tr>';}
+['filter-date-from','filter-date-to','filter-doctor','filter-subject','filter-status'].forEach(id=>{var x=el(id);if(x){x.oninput=render;x.onchange=render;}});render();}
+async function lb(id,table,field,label){var r=(await db().from(table).select('*').order(field,{ascending:false}).limit(10)).data||[];mini(id,r.map((x,i)=>({rank:x.rank_position||i+1,label:x.student_name,value:fmt(x[field])+' '+label})));}
+async function initZiadLeaderboards(){if(!auth())return;await Promise.all([lb('lb-general','v_leaderboard_general','total_score','نقطة'),lb('lb-questions','v_leaderboard_questions','total_questions','سؤال'),lb('lb-focus','v_leaderboard_focus','operation_minutes','دقيقة'),lb('lb-persistent','v_leaderboard_persistent','total_study_hours','ساعة')]);var q=(await db().from('quiz_grades').select('*').order('score',{ascending:false}).limit(10)).data||[];mini('lb-quiz',q.map((x,i)=>({rank:i+1,label:x.student_name||maskPhone(x.student_phone),value:fmt(x.score)})));}
+async function initZiadAnalytics(){if(!auth())return;var days=[];for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));}var reps=(await db().from('daily_reports').select('report_date,study_hours,amount,subject,activity_type').gte('report_date',days[0])).data||[];var ach=new Map(days.map(d=>[d,0])),hrs=new Map(days.map(d=>[d,0])),qs=new Map(days.map(d=>[d,0])),sub=new Map();reps.forEach(r=>{add(ach,r.report_date,1);add(hrs,r.report_date,r.study_hours);if(String(r.activity_type).includes('question')||String(r.activity_type).includes('سؤال'))add(qs,r.report_date,r.amount);add(sub,r.subject,1);});bars('chart-daily-achievements',days.map(d=>({label:d.slice(5),value:ach.get(d)})));bars('chart-study-hours',days.map(d=>({label:d.slice(5),value:hrs.get(d)})));bars('chart-questions',days.map(d=>({label:d.slice(5),value:qs.get(d)})));var totals=(await db().from('v_student_platform_totals').select('*').limit(1000)).data||[];var groups=new Map(),gt=new Map();totals.forEach(r=>{add(groups,r.doctor_group,n(r.total_score)||1);add(gt,(r.grade_level||'غير محدد')+' - '+(r.track||'غير محدد'),n(r.total_score)||1);});bars('chart-doctor-groups',top(groups,8));bars('chart-subjects',top(sub,8));bars('chart-grades-tracks',top(gt,8));}
+window.loginZiad=loginZiad;window.logoutZiad=logoutZiad;window.checkZiadAuth=auth;window.renderZiadNav=nav;window.maskPhone=maskPhone;window.renderRows=function(){};window.renderMiniList=mini;window.renderBars=bars;window.safeDb=db;window.initZiadDashboard=initZiadDashboard;window.initZiadStudents=initZiadStudents;window.initZiadReports=initZiadReports;window.initZiadLeaderboards=initZiadLeaderboards;window.initZiadAnalytics=initZiadAnalytics;
+})();
+===== FILE: /doctor/dashboard.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الدكتورة / الباقة</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="doctor-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>دخول لوحة الدكتورة / الباقة</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="doctor-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="doctor-login-message" class="text-red text-sm mb-1"></div>
+        <button id="doctor-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="doctor-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>لوحة الدكتورة / الباقة</span></div></div>
+      <div class="sidebar-nav" id="doctor-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>لوحة الدكتورة / الباقة</h1></div>
+      <div class="admin-content">
+        <h2 id="doctor-title">لوحة الدكتورة / الباقة</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><div id="dstat-students" class="stat-value">0</div><div class="stat-label">عدد الطلاب</div></div>
+          <div class="stat-card"><div id="dstat-achievements" class="stat-value">0</div><div class="stat-label">الإنجازات</div></div>
+          <div class="stat-card"><div id="dstat-study-hours" class="stat-value">0</div><div class="stat-label">ساعات المذاكرة</div></div>
+          <div class="stat-card"><div id="dstat-questions" class="stat-value">0</div><div class="stat-label">الأسئلة</div></div>
+          <div class="stat-card"><div id="dstat-operation-hours" class="stat-value">0</div><div class="stat-label">ساعات Operation</div></div>
+          <div class="stat-card"><div id="dstat-pending" class="stat-value">0</div><div class="stat-label">تقارير معلقة</div></div>
+        </div>
+        <div class="card"><div class="card-title">🏆 أفضل طلاب المجموعة</div><div class="table-wrap"><table><thead><tr><th>#</th><th>الطالب</th><th>الهاتف</th><th>النقاط</th><th>XP</th><th>الحالة</th></tr></thead><tbody id="doctor-top-students"></tbody></table></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/doctor-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initDoctorDashboard);</script>
+</body>
+</html>
+===== FILE: /doctor/students.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلابي - لوحة الدكتورة</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="doctor-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>دخول لوحة الدكتورة / الباقة</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="doctor-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="doctor-login-message" class="text-red text-sm mb-1"></div>
+        <button id="doctor-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="doctor-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>طلابي - لوحة الدكتورة</span></div></div>
+      <div class="sidebar-nav" id="doctor-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>طلابي - لوحة الدكتورة</h1></div>
+      <div class="admin-content">
+        <div id="students-message" class="mb-1"></div>
+        <div class="card mb-2"><div class="card-title">➕ إضافة طالب موجود للمجموعة</div><div class="input-row"><input id="add-student-phone" placeholder="رقم الهاتف"><button id="add-student-btn" class="btn btn-primary">إضافة للمجموعة</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>الاسم</th><th>الهاتف</th><th>الصف</th><th>النظام</th><th>المسار</th><th>النقاط</th><th>XP</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="my-students-body"></tbody></table></div>
+        <div id="points-modal" class="modal-overlay hidden" style="display:none"><div class="modal-box"><div class="modal-header"><h3>تعديل نقاط الطالب</h3><button data-close-modal="points-modal" class="btn btn-ghost">×</button></div><div class="modal-body"><input type="hidden" id="points-student-id"><div class="form-group"><label class="form-label">الطالب</label><input id="points-student-name" disabled></div><div class="form-group"><label class="form-label">النقاط</label><input type="number" id="points-amount"></div><div class="form-group"><label class="form-label">السبب</label><input id="points-reason"></div><div class="form-group"><label class="form-label">العملية</label><select id="points-operation"><option value="add">إضافة</option><option value="subtract">خصم</option></select></div><button id="save-points-btn" class="btn btn-primary">حفظ</button></div></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/doctor-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initDoctorStudents);</script>
+</body>
+</html>
+===== FILE: /doctor/reports.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تقارير طلابي - لوحة الدكتورة</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="doctor-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>دخول لوحة الدكتورة / الباقة</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="doctor-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="doctor-login-message" class="text-red text-sm mb-1"></div>
+        <button id="doctor-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="doctor-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>تقارير طلابي - لوحة الدكتورة</span></div></div>
+      <div class="sidebar-nav" id="doctor-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>تقارير طلابي - لوحة الدكتورة</h1></div>
+      <div class="admin-content">
+        <div class="filter-bar"><div class="form-group"><label class="form-label">التاريخ</label><input type="date" id="filter-date"></div><div class="form-group"><label class="form-label">الطالب</label><select id="filter-student"><option value="">كل الطلاب</option></select></div><div class="form-group"><label class="form-label">المادة</label><input id="filter-subject"></div><div class="form-group"><label class="form-label">الحالة</label><select id="filter-status"><option value="">كل الحالات</option><option value="pending">معلق</option><option value="approved">مقبول</option><option value="rejected">مرفوض</option></select></div></div>
+        <div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>الطالب</th><th>المادة</th><th>النشاط</th><th>الكمية</th><th>الساعات</th><th>النقاط</th><th>الحالة</th><th>ملاحظة</th><th>إجراءات</th></tr></thead><tbody id="my-reports-body"></tbody></table></div>
+        <div id="review-modal" class="modal-overlay hidden" style="display:none"><div class="modal-box"><div class="modal-header"><h3>مراجعة التقرير</h3><button data-close-modal="review-modal" class="btn btn-ghost">×</button></div><div class="modal-body"><input type="hidden" id="review-report-id"><input type="hidden" id="review-student-id"><div class="form-group"><label class="form-label">النقاط</label><input type="number" id="review-points"></div><div class="form-group"><label class="form-label">ملاحظة الدكتور</label><textarea id="review-note"></textarea></div><div class="flex gap-sm"><button id="approve-report-btn" class="btn btn-green">اعتماد</button><button id="reject-report-btn" class="btn btn-red">رفض</button><button id="save-report-review-btn" class="btn btn-primary">حفظ التعديل</button></div></div></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/doctor-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initDoctorReports);</script>
+</body>
+</html>
+===== FILE: /doctor/leaderboards.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جداول الدوري - لوحة الدكتورة</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="doctor-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>دخول لوحة الدكتورة / الباقة</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="doctor-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="doctor-login-message" class="text-red text-sm mb-1"></div>
+        <button id="doctor-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="doctor-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>جداول الدوري - لوحة الدكتورة</span></div></div>
+      <div class="sidebar-nav" id="doctor-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>جداول الدوري - لوحة الدكتورة</h1></div>
+      <div class="admin-content">
+        <label class="badge badge-purple mb-2"><input type="checkbox" id="toggle-my-students"> طلابي فقط</label>
+        <div class="grid-2"><div class="card"><div class="card-title">🏆 بطل الجولة</div><div id="dlb-general"></div></div><div class="card"><div class="card-title">🎯 هداف الدوري</div><div id="dlb-questions"></div></div><div class="card"><div class="card-title">⚙️ أبطال التركيز</div><div id="dlb-focus"></div></div><div class="card"><div class="card-title">🧱 المثابر</div><div id="dlb-persistent"></div></div><div class="card"><div class="card-title">📝 كويز 9</div><div id="dlb-quiz"></div></div></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/doctor-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initDoctorLeaderboards);</script>
+</body>
+</html>
+===== FILE: /doctor/logs.html =====
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logs - لوحة الدكتورة</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <div id="doctor-login-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-header"><h3>دخول لوحة الدكتورة / الباقة</h3></div>
+      <div class="modal-body">
+        <p class="text-muted mb-2">أدخل كود الدخول للمتابعة</p>
+        <div class="form-group"><input id="doctor-code" type="password" placeholder="كود الدخول" autocomplete="off"></div>
+        <div id="doctor-login-message" class="text-red text-sm mb-1"></div>
+        <button id="doctor-login-btn" class="btn btn-primary btn-block">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="doctor-app" class="admin-shell" style="display:none">
+    <nav class="admin-sidebar">
+      <div class="sidebar-header"><div class="brand">دوري المذاكراوية <span>Logs - لوحة الدكتورة</span></div></div>
+      <div class="sidebar-nav" id="doctor-nav"></div>
+    </nav>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>Logs - لوحة الدكتورة</h1></div>
+      <div class="admin-content">
+        <div class="filter-bar"><div class="form-group"><label class="form-label">التاريخ</label><input type="date" id="filter-date"></div><div class="form-group"><label class="form-label">الطالب</label><select id="filter-student"><option value="">كل الطلاب</option></select></div><div class="form-group"><label class="form-label">نوع العملية</label><input id="filter-action"></div></div>
+        <div class="table-wrap"><table><thead><tr><th>الوقت</th><th>المصدر</th><th>الفاعل</th><th>الدور</th><th>العملية</th><th>الطالب</th><th>قبل</th><th>بعد</th><th>ملاحظة</th></tr></thead><tbody id="logs-body"></tbody></table></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/js/supabase.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/doctor-panel.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initDoctorLogs);</script>
+</body>
+</html>
+===== FILE: /assets/js/doctor-panel.js =====
+(function(){
+'use strict';
+var KEY='currentDoctorGroup';
+function db(){return window.supabaseClient;} function el(id){return document.getElementById(id);} function n(v){v=Number(v);return Number.isFinite(v)?v:0;} function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));} function fmt(v){return n(v).toLocaleString('ar-EG');} function date(v){return v?new Date(v).toLocaleString('ar-EG'):'—';}
+function group(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null;}}
+async function loginDoctor(){var code=(el('doctor-code')||{}).value||'';code=code.trim();if(!code){var m=el('doctor-login-message');if(m)m.textContent='اكتب كود الدخول';return;}var r=await db().from('doctor_groups').select('id,name,login_code,is_active,role,display_name').eq('login_code',code).eq('is_active',true).maybeSingle();if(r.error||!r.data){var msg=el('doctor-login-message');if(msg)msg.textContent='كود غير صحيح أو المجموعة غير مفعلة';return;}localStorage.setItem(KEY,JSON.stringify(r.data));location.reload();}
+function logoutDoctor(){localStorage.removeItem(KEY);location.href='/doctor/dashboard.html';}
+function nav(){var x=el('doctor-nav'); if(!x)return; var links=[['الرئيسية','/doctor/dashboard.html'],['طلابي','/doctor/students.html'],['التقارير','/doctor/reports.html'],['جداول الدوري','/doctor/leaderboards.html'],['Logs','/doctor/logs.html']];x.innerHTML=links.map(l=>'<a class="'+(location.pathname===l[1]?'active':'')+'" href="'+l[1]+'">'+l[0]+'</a>').join('')+'<a href="#" onclick="logoutDoctor();return false">خروج</a>';}
+function auth(){var g=group(),o=el('doctor-login-overlay'),a=el('doctor-app'),b=el('doctor-login-btn'),c=el('doctor-code'),t=el('doctor-title');if(b)b.onclick=loginDoctor;if(c)c.onkeydown=e=>{if(e.key==='Enter')loginDoctor();};if(!g){if(o)o.style.display='flex';if(a)a.style.display='none';return null;}if(o)o.style.display='none';if(a)a.style.display='flex';if(t)t.textContent='لوحة '+(g.display_name||g.name);nav();return g;}
+async function logDoctorAction(action_type,student_id,old_value,new_value,note){var g=group();if(!g)return;await db().from('doctor_action_logs').insert({actor:g.name,role:g.role||'doctor',action_type,student_id:student_id||null,old_value:old_value==null?null:String(old_value),new_value:new_value==null?null:String(new_value),note:note||null,undone:false,created_at:new Date().toISOString()});}
+async function myStudents(){var g=group();if(!g)return[];var r=await db().from('students').select('id,name,phone,grade_level,edu_system,track,doctor_group,score,xp,is_active,is_frozen,created_at').eq('doctor_group',g.name).order('score',{ascending:false});return r.data||[];} async function myIds(){return (await myStudents()).map(s=>s.id);} function status(s){return s.is_frozen?'مجمد':s.is_active===false?'غير مفعل':'نشط';}
+async function initDoctorDashboard(){var g=auth();if(!g)return;var students=await myStudents(),ids=students.map(s=>s.id);el('dstat-students').textContent=students.length;el('dstat-achievements').textContent=fmt(students.reduce((a,s)=>a+n(s.score),0));var reps=[],sess=[];if(ids.length){reps=(await db().from('daily_reports').select('activity_type,amount,status,points,study_hours,student_id').in('student_id',ids)).data||[];sess=(await db().from('study_sessions').select('duration_minutes,task_type,amount,status,student_id').in('student_id',ids)).data||[];}el('dstat-study-hours').textContent=fmt((reps.reduce((a,r)=>a+n(r.study_hours),0)+sess.reduce((a,s)=>a+n(s.duration_minutes)/60,0)).toFixed(1));el('dstat-operation-hours').textContent=fmt((sess.reduce((a,s)=>a+n(s.duration_minutes),0)/60).toFixed(1));el('dstat-pending').textContent=reps.filter(r=>r.status==='pending').length;el('dstat-questions').textContent=fmt(reps.reduce((a,r)=>a+(String(r.activity_type).includes('question')||String(r.activity_type).includes('سؤال')?n(r.amount):0),0)+sess.reduce((a,s)=>a+(String(s.task_type).includes('question')||String(s.task_type).includes('سؤال')?n(s.amount):0),0));var b=el('doctor-top-students');b.innerHTML=students.slice(0,10).map((s,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(s.name)+'</td><td>'+esc(s.phone)+'</td><td>'+fmt(s.score)+'</td><td>'+fmt(s.xp)+'</td><td>'+status(s)+'</td></tr>').join('')||'<tr><td colspan="6">لا يوجد طلاب</td></tr>';}
+async function initDoctorStudents(){var g=auth();if(!g)return;document.querySelectorAll('[data-close-modal]').forEach(b=>b.onclick=()=>{var m=el(b.getAttribute('data-close-modal'));if(m)m.style.display='none';});var add=el('add-student-btn');if(add)add.onclick=addStudentToGroup;var save=el('save-points-btn');if(save)save.onclick=savePoints;renderStudents();}
+async function renderStudents(){var st=await myStudents(),b=el('my-students-body');b.innerHTML=st.map(s=>'<tr><td>'+esc(s.name)+'</td><td>'+esc(s.phone)+'</td><td>'+esc(s.grade_level)+'</td><td>'+esc(s.edu_system)+'</td><td>'+esc(s.track)+'</td><td>'+fmt(s.score)+'</td><td>'+fmt(s.xp)+'</td><td>'+status(s)+'</td><td><button class="btn btn-yellow btn-xs" data-points="'+s.id+'" data-name="'+esc(s.name)+'">نقاط</button> <button class="btn btn-red btn-xs" data-remove="'+s.id+'">إزالة</button></td></tr>').join('')||'<tr><td colspan="9">لا يوجد طلاب</td></tr>';b.querySelectorAll('[data-points]').forEach(x=>x.onclick=()=>{el('points-student-id').value=x.dataset.points;el('points-student-name').value=x.dataset.name;el('points-modal').style.display='flex';});b.querySelectorAll('[data-remove]').forEach(x=>x.onclick=async()=>{if(!confirm('إزالة الطالب من المجموعة؟'))return;await db().from('students').update({doctor_group:'آخر'}).eq('id',x.dataset.remove);await logDoctorAction('remove_student_from_group',x.dataset.remove,group().name,'آخر','إزالة من لوحة الدكتورة');renderStudents();});}
+async function addStudentToGroup(){var phone=(el('add-student-phone').value||'').trim();if(!phone)return alert('اكتب رقم الهاتف');var r=await db().from('students').select('id,name,doctor_group').eq('phone',phone).maybeSingle();if(!r.data)return alert('لم يتم العثور على الطالب');if(!confirm('إضافة '+r.data.name+' للمجموعة؟'))return;await db().from('students').update({doctor_group:group().name}).eq('id',r.data.id);await logDoctorAction('add_student_to_group',r.data.id,r.data.doctor_group,group().name,'إضافة بالهاتف '+phone);renderStudents();}
+async function savePoints(){var id=el('points-student-id').value,amount=n(el('points-amount').value),reason=el('points-reason').value,op=el('points-operation').value;if(!id||amount<=0||!reason)return alert('اكتب النقاط والسبب');if(!confirm('تأكيد تعديل النقاط؟'))return;var signed=op==='subtract'?-Math.abs(amount):Math.abs(amount);var r=await db().from('students').select('score').eq('id',id).maybeSingle();var old=n(r.data&&r.data.score),neo=old+signed;await db().from('students').update({score:neo}).eq('id',id);await db().from('admin_point_logs').insert({student_id:id,points:signed,reason:'['+group().name+'] '+reason,created_at:new Date().toISOString()});await logDoctorAction('change_student_points',id,old,neo,reason);el('points-modal').style.display='none';renderStudents();}
+async function initDoctorReports(){var g=auth();if(!g)return;document.querySelectorAll('[data-close-modal]').forEach(b=>b.onclick=()=>{var m=el(b.getAttribute('data-close-modal'));if(m)m.style.display='none';});var st=await myStudents();var sf=el('filter-student');sf.innerHTML='<option value="">كل الطلاب</option>'+st.map(s=>'<option value="'+s.id+'">'+esc(s.name)+'</option>').join('');['filter-date','filter-student','filter-subject','filter-status'].forEach(id=>{var x=el(id);if(x){x.oninput=renderReports;x.onchange=renderReports;}});el('approve-report-btn').onclick=()=>reviewReport('approved');el('reject-report-btn').onclick=()=>reviewReport('rejected');el('save-report-review-btn').onclick=()=>reviewReport('edit');renderReports();}
+async function renderReports(){var ids=await myIds(),b=el('my-reports-body');if(!ids.length){b.innerHTML='<tr><td colspan="10">لا يوجد طلاب</td></tr>';return;}var q=db().from('daily_reports').select('*').in('student_id',ids).order('report_date',{ascending:false});var d=el('filter-date').value,s=el('filter-student').value,sub=el('filter-subject').value,sta=el('filter-status').value;if(d)q=q.eq('report_date',d);if(s)q=q.eq('student_id',s);if(sub)q=q.ilike('subject','%'+sub+'%');if(sta)q=q.eq('status',sta);var rows=(await q).data||[],students=await myStudents(),names=Object.fromEntries(students.map(x=>[x.id,x.name]));b.innerHTML=rows.map(r=>'<tr><td>'+esc(r.report_date)+'</td><td>'+esc(names[r.student_id])+'</td><td>'+esc(r.subject)+'</td><td>'+esc(r.activity_type)+'</td><td>'+fmt(r.amount)+'</td><td>'+fmt(r.study_hours)+'</td><td>'+fmt(r.points)+'</td><td>'+esc(r.status)+'</td><td>'+esc(r.admin_note||r.notes)+'</td><td><button class="btn btn-primary btn-xs" data-review="'+r.id+'" data-student="'+r.student_id+'" data-points="'+(r.points||0)+'" data-note="'+esc(r.admin_note||'')+'">مراجعة</button></td></tr>').join('')||'<tr><td colspan="10">لا توجد تقارير</td></tr>';b.querySelectorAll('[data-review]').forEach(x=>x.onclick=()=>{el('review-report-id').value=x.dataset.review;el('review-student-id').value=x.dataset.student;el('review-points').value=x.dataset.points;el('review-note').value=x.dataset.note;el('review-modal').style.display='flex';});}
+async function reviewReport(mode){var id=el('review-report-id').value,sid=el('review-student-id').value,pts=n(el('review-points').value),note=el('review-note').value;if(!confirm('تنفيذ المراجعة؟'))return;var old=(await db().from('daily_reports').select('status,points,admin_note').eq('id',id).maybeSingle()).data||{};var st=mode==='edit'?old.status:mode;await db().from('daily_reports').update({status:st,points:pts,admin_note:note,reviewed_by:group().name,reviewed_at:new Date().toISOString()}).eq('id',id);await logDoctorAction(mode==='approved'?'approve_daily_report':mode==='rejected'?'reject_daily_report':'edit_daily_report_review',sid,JSON.stringify(old),JSON.stringify({status:st,points:pts,note:note}),'مراجعة تقرير '+id);el('review-modal').style.display='none';renderReports();}
+function table(rows,field,g){return '<table><thead><tr><th>#</th><th>الطالب</th><th>المجموعة</th><th>القيمة</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr class="'+(r.doctor_group===g.name?'highlight-student':'')+'"><td>'+(r.rank_position||i+1)+'</td><td>'+(r.doctor_group===g.name?'⭐ ':'')+esc(r.student_name)+'</td><td>'+esc(r.doctor_group)+'</td><td>'+fmt(r[field])+'</td></tr>').join('')+'</tbody></table>';}
+async function initDoctorLeaderboards(){var g=auth();if(!g)return;var t=el('toggle-my-students');if(t)t.onchange=renderLeaderboards;renderLeaderboards();}
+async function renderLeaderboards(){var g=group(),only=el('toggle-my-students')&&el('toggle-my-students').checked;async function fill(id,view,field){var q=db().from(view).select('*').order(field,{ascending:false}).limit(50);if(only)q=q.eq('doctor_group',g.name);var r=(await q).data||[];el(id).innerHTML=table(r,field,g);}await fill('dlb-general','v_leaderboard_general','total_score');await fill('dlb-questions','v_leaderboard_questions','total_questions');await fill('dlb-focus','v_leaderboard_focus','operation_minutes');await fill('dlb-persistent','v_leaderboard_persistent','total_study_hours');var ids=(await myIds());var q=db().from('quiz_grades').select('*').order('score',{ascending:false}).limit(50);if(only&&ids.length)q=q.in('student_id',ids);var r=(await q).data||[];el('dlb-quiz').innerHTML='<table><thead><tr><th>#</th><th>الطالب</th><th>الدرجة</th><th>من</th></tr></thead><tbody>'+r.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+(ids.includes(x.student_id)?'⭐ ':'')+esc(x.student_name||x.student_phone)+'</td><td>'+fmt(x.score)+'</td><td>'+fmt(x.max_score)+'</td></tr>').join('')+'</tbody></table>';}
+async function initDoctorLogs(){var g=auth();if(!g)return;var st=await myStudents();el('filter-student').innerHTML='<option value="">كل الطلاب</option>'+st.map(s=>'<option value="'+s.id+'">'+esc(s.name)+'</option>').join('');['filter-date','filter-student','filter-action'].forEach(id=>{var x=el(id);if(x){x.oninput=renderLogs;x.onchange=renderLogs;}});renderLogs();}
+async function renderLogs(){var ids=(await myIds()),body=el('logs-body');if(!ids.length){body.innerHTML='<tr><td colspan="9">لا توجد Logs</td></tr>';return;}var sid=el('filter-student').value,action=(el('filter-action').value||'').toLowerCase(),day=el('filter-date').value,wanted=sid?[sid]:ids,all=[];var dl=(await db().from('doctor_action_logs').select('*').in('student_id',wanted).order('created_at',{ascending:false}).limit(200)).data||[];dl.forEach(l=>{l._source='doctor_action_logs';all.push(l);});var sl=(await db().from('student_logs').select('*').in('student_id',wanted).order('created_at',{ascending:false}).limit(200)).data||[];sl.forEach(l=>{l._source='student_logs';all.push(l);});var pl=(await db().from('admin_point_logs').select('*').in('student_id',wanted).order('created_at',{ascending:false}).limit(200)).data||[];pl.forEach(l=>all.push({_source:'admin_point_logs',actor:'points',role:'points',action_type:'points_change',student_id:l.student_id,old_value:'',new_value:l.points,note:l.reason,created_at:l.created_at}));var names=Object.fromEntries((await myStudents()).map(s=>[s.id,s.name]));all=all.filter(l=>(!action||String(l.action_type).toLowerCase().includes(action))&&(!day||String(l.created_at).slice(0,10)===day)).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));body.innerHTML=all.map(l=>'<tr><td>'+date(l.created_at)+'</td><td>'+esc(l._source)+'</td><td>'+esc(l.actor)+'</td><td>'+esc(l.role)+'</td><td>'+esc(l.action_type)+'</td><td>'+esc(names[l.student_id]||l.student_id)+'</td><td>'+esc(l.old_value)+'</td><td>'+esc(l.new_value)+'</td><td>'+esc(l.note)+'</td></tr>').join('')||'<tr><td colspan="9">لا توجد Logs</td></tr>';}
+window.checkDoctorAuth=auth;window.loginDoctor=loginDoctor;window.logoutDoctor=logoutDoctor;window.renderDoctorNav=nav;window.getCurrentDoctorGroup=group;window.safeDb=db;window.logDoctorAction=logDoctorAction;window.getMyStudentIds=myIds;window.initDoctorDashboard=initDoctorDashboard;window.initDoctorStudents=initDoctorStudents;window.initDoctorReports=initDoctorReports;window.initDoctorLeaderboards=initDoctorLeaderboards;window.initDoctorLogs=initDoctorLogs;
+})();

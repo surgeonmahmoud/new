@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logs — دوري المذاكراوية</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+
+<div id="admin-login-overlay">
+  <div class="login-card">
+    <div class="logo">🏆</div>
+    <h2>دوري المذاكراوية</h2>
+    <p>لوحة تحكم الأدمن — محمود</p>
+    <div class="form-group">
+      <input type="password" id="login-code-input" placeholder="أدخل كود الدخول" autocomplete="off">
+    </div>
+    <button id="login-btn" class="btn btn-primary btn-block btn-lg">دخول</button>
+  </div>
+</div>
+
+<div class="admin-shell">
+  <nav class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="/assets/img/league-logo.png" alt="logo" class="admin-logo-img" />
+      <div class="brand">دوري المذاكراوية <span>Admin — محمود</span></div>
+    </div>
+    <div class="sidebar-nav" id="admin-nav"></div>
+    <div class="sidebar-footer">
+      <button id="admin-logout-btn" class="btn btn-ghost btn-sm btn-block">🚪 خروج</button>
+    </div>
+  </nav>
+
+  <main class="admin-main" id="logs-page">
+    <div class="admin-topbar">
+      <h1>📜 سجلات النظام</h1>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">التاريخ</label>
+          <input type="date" id="lfilter-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">الإجراء</label>
+          <input type="text" id="lfilter-action" placeholder="مثال: edit_student">
+        </div>
+        <div class="form-group">
+          <label class="form-label">المنفذ (actor)</label>
+          <input type="text" id="lfilter-actor" placeholder="mahmoud">
+        </div>
+        <div class="form-group" style="align-self:flex-end">
+          <button id="log-filter-btn" class="btn btn-primary">🔍 بحث</button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="ltab-student">Student Logs</button>
+        <button class="tab-btn" data-tab="ltab-doctor">Doctor Logs</button>
+        <button class="tab-btn" data-tab="ltab-points">Point Logs</button>
+      </div>
+
+      <!-- Student Logs -->
+      <div id="ltab-student" class="tab-pane active">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>actor</th>
+                <th>role</th>
+                <th>action_type</th>
+                <th>student_id</th>
+                <th>old_value</th>
+                <th>new_value</th>
+                <th>note</th>
+                <th>وقت</th>
+              </tr>
+            </thead>
+            <tbody id="student-logs-tbody">
+              <tr class="loading-row"><td colspan="8"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Doctor Logs -->
+      <div id="ltab-doctor" class="tab-pane">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>actor</th>
+                <th>role</th>
+                <th>action_type</th>
+                <th>student_id</th>
+                <th>old_value</th>
+                <th>new_value</th>
+                <th>وقت</th>
+              </tr>
+            </thead>
+            <tbody id="doctor-logs-tbody">
+              <tr class="loading-row"><td colspan="7"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Point Logs -->
+      <div id="ltab-points" class="tab-pane">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الطالب</th>
+                <th>النقاط</th>
+                <th>السبب</th>
+                <th>وقت</th>
+              </tr>
+            </thead>
+            <tbody id="point-logs-tbody">
+              <tr class="loading-row"><td colspan="4"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/admin-mahmoud.js"></script>
+<script>
+  window._adminInitFn = initMahmoudLogs;
+  document.addEventListener('DOMContentLoaded', () => {
+    if (checkAccess()) initMahmoudLogs();
+  });
+</script>
+</body>
+</html>
+
+
+كل ملفات Part 2 اتكتبت بالكامل. الملفات المكتوبة:
+
+- `/assets/css/admin.css` — الـ theme الكامل
+- `/assets/js/admin-mahmoud.js` — كل الـ logic
+- `/admin-mahmoud/dashboard.html`
+- `/admin-mahmoud/students.html`
+- `/admin-mahmoud/reports.html`
+- `/admin-mahmoud/operation.html`
+- `/admin-mahmoud/quizzes.html`
+- `/admin-mahmoud/doctor-question.html`
+- `/admin-mahmoud/seasons.html`
+- `/admin-mahmoud/doctors.html`
+- `/admin-mahmoud/logs.html`

@@ -1,0 +1,25 @@
+﻿===== FRONTEND CLEAN REPORT =====
+Project Path: D:\الموقع\mazakrawi
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\doctor-question.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\doctors.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\logs.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\operation.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\quizzes.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\reports.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\seasons.html
+CLEANED: D:\الموقع\mazakrawi\admin-mahmoud\students.html
+CLEANED: D:\الموقع\mazakrawi\assets\css\admin.css
+CLEANED: D:\الموقع\mazakrawi\assets\js\admin-mahmoud.js
+
+===== POST CHECK =====
+OK: No markdown fences found
+
+===== CSS FILES =====
+
+FullName                                 Length LastWriteTime        
+--------                                 ------ -------------        
+D:\الموقع\mazakrawi\assets\css\main.css   22948 2026-06-15 3:19:23 AM
+D:\الموقع\mazakrawi\assets\css\admin.css  19395 2026-06-15 4:44:03 AM
+
+

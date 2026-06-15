@@ -1,0 +1,111 @@
+﻿===== PHASE 2 LOGO PATCH REPORT =====
+Project Path: D:\الموقع\mazakrawi
+OK: logo found
+BACKUP: D:\الموقع\mazakrawi\login.html
+LOGO ADDED: D:\الموقع\mazakrawi\login.html
+BACKUP: D:\الموقع\mazakrawi\signup.html
+LOGO ADDED: D:\الموقع\mazakrawi\signup.html
+BACKUP: D:\الموقع\mazakrawi\login.html
+UPDATED: D:\الموقع\mazakrawi\login.html
+BACKUP: D:\الموقع\mazakrawi\signup.html
+UPDATED: D:\الموقع\mazakrawi\signup.html
+BACKUP: D:\الموقع\mazakrawi\login.html
+UPDATED: D:\الموقع\mazakrawi\login.html
+BACKUP: D:\الموقع\mazakrawi\signup.html
+UPDATED: D:\الموقع\mazakrawi\signup.html
+BACKUP: D:\الموقع\mazakrawi\login.html
+LOGIN TEXT FIXED
+BACKUP: D:\الموقع\mazakrawi\student\doctor-question.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\doctor-question.html
+BACKUP: D:\الموقع\mazakrawi\student\doctor-question.html
+UPDATED: D:\الموقع\mazakrawi\student\doctor-question.html
+BACKUP: D:\الموقع\mazakrawi\student\doctor-question.html
+UPDATED: D:\الموقع\mazakrawi\student\doctor-question.html
+BACKUP: D:\الموقع\mazakrawi\student\hall-of-fame.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\hall-of-fame.html
+BACKUP: D:\الموقع\mazakrawi\student\hall-of-fame.html
+UPDATED: D:\الموقع\mazakrawi\student\hall-of-fame.html
+BACKUP: D:\الموقع\mazakrawi\student\hall-of-fame.html
+UPDATED: D:\الموقع\mazakrawi\student\hall-of-fame.html
+BACKUP: D:\الموقع\mazakrawi\student\home.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\home.html
+BACKUP: D:\الموقع\mazakrawi\student\home.html
+UPDATED: D:\الموقع\mazakrawi\student\home.html
+BACKUP: D:\الموقع\mazakrawi\student\home.html
+UPDATED: D:\الموقع\mazakrawi\student\home.html
+BACKUP: D:\الموقع\mazakrawi\student\leaderboards.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\leaderboards.html
+BACKUP: D:\الموقع\mazakrawi\student\leaderboards.html
+UPDATED: D:\الموقع\mazakrawi\student\leaderboards.html
+BACKUP: D:\الموقع\mazakrawi\student\leaderboards.html
+UPDATED: D:\الموقع\mazakrawi\student\leaderboards.html
+BACKUP: D:\الموقع\mazakrawi\student\operation.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\operation.html
+BACKUP: D:\الموقع\mazakrawi\student\operation.html
+UPDATED: D:\الموقع\mazakrawi\student\operation.html
+BACKUP: D:\الموقع\mazakrawi\student\operation.html
+UPDATED: D:\الموقع\mazakrawi\student\operation.html
+BACKUP: D:\الموقع\mazakrawi\student\quiz.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\quiz.html
+BACKUP: D:\الموقع\mazakrawi\student\quiz.html
+UPDATED: D:\الموقع\mazakrawi\student\quiz.html
+BACKUP: D:\الموقع\mazakrawi\student\quiz.html
+UPDATED: D:\الموقع\mazakrawi\student\quiz.html
+BACKUP: D:\الموقع\mazakrawi\student\report.html
+NAV LOGO ADDED: D:\الموقع\mazakrawi\student\report.html
+BACKUP: D:\الموقع\mazakrawi\student\report.html
+UPDATED: D:\الموقع\mazakrawi\student\report.html
+BACKUP: D:\الموقع\mazakrawi\student\report.html
+UPDATED: D:\الموقع\mazakrawi\student\report.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\dashboard.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\doctor-question.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\doctor-question.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\doctors.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\doctors.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\logs.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\logs.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\operation.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\operation.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\quizzes.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\quizzes.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\reports.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\reports.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\seasons.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\seasons.html
+BACKUP: D:\الموقع\mazakrawi\admin-mahmoud\students.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\admin-mahmoud\students.html
+BACKUP: D:\الموقع\mazakrawi\ziad\analytics.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\ziad\analytics.html
+BACKUP: D:\الموقع\mazakrawi\ziad\dashboard.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\ziad\dashboard.html
+BACKUP: D:\الموقع\mazakrawi\ziad\leaderboards.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\ziad\leaderboards.html
+BACKUP: D:\الموقع\mazakrawi\ziad\reports.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\ziad\reports.html
+BACKUP: D:\الموقع\mazakrawi\ziad\students.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\ziad\students.html
+BACKUP: D:\الموقع\mazakrawi\doctor\dashboard.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\doctor\dashboard.html
+BACKUP: D:\الموقع\mazakrawi\doctor\leaderboards.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\doctor\leaderboards.html
+BACKUP: D:\الموقع\mazakrawi\doctor\logs.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\doctor\logs.html
+BACKUP: D:\الموقع\mazakrawi\doctor\reports.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\doctor\reports.html
+BACKUP: D:\الموقع\mazakrawi\doctor\students.html
+ADMIN LOGO ADDED: D:\الموقع\mazakrawi\doctor\students.html
+BACKUP: D:\الموقع\mazakrawi\assets\css\main.css
+MAIN CSS APPENDED
+BACKUP: D:\الموقع\mazakrawi\assets\css\admin.css
+ADMIN CSS APPENDED
+
+===== POST CHECK =====
+OK LOGO: index.html
+OK LOGO: login.html
+OK LOGO: signup.html
+OK LOGO: student\home.html
+OK LOGO: admin-mahmoud\dashboard.html
+OK LOGO: ziad\dashboard.html
+OK LOGO: doctor\dashboard.html
+DONE
